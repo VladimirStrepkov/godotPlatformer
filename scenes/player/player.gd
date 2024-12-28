@@ -16,11 +16,11 @@ func _physics_process(delta):
 		velocity += get_gravity() * delta
 
 	# Прыжок
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# В зависимости от нажатых кнопок меняем направление движения
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
