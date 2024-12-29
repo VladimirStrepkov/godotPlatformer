@@ -1,14 +1,27 @@
 extends CharacterBody2D
 
-
-const SPEED = 100.0
-const JUMP_VELOCITY = -400.0
+# Скорость игрока
+var speed: float
+# Скорость ходьбы игрока
+var walk_speed: float = 30.0
+# Скорость бега игрока
+var run_speed: float = 100.0
+# Высота прыжка игрока
+var jump_velocity: float = -400.0
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	anim.play("idle")
+	Globals.connect("switch_player_white_color", switch_player_white_color)
 
+# Делаем спрайт игрока белым если игрок получил урон
+# Или делаем спрайт обычным если игрок вышел из неуязвимости
+func switch_player_white_color() -> void:
+	if Globals.is_player_vulnerable:
+		$AnimatedSprite2D.material.set_shader_parameter("progress", 0)
+	else:
+		$AnimatedSprite2D.material.set_shader_parameter("progress", 1)
 
 func _physics_process(delta):
 	# Добавляем гравитацию
@@ -17,14 +30,20 @@ func _physics_process(delta):
 
 	# Прыжок
 	if Input.is_action_just_pressed("accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
+		
+	# В зависимости от нажатия ctrl меняем скорость игрока (ходьба/бег)
+	if Input.is_action_pressed("ctrl"):
+		speed = walk_speed
+	else:
+		speed = run_speed
 
 	# В зависимости от нажатых кнопок меняем направление движения
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	update_animation()
 	move_and_slide()
@@ -39,18 +58,26 @@ func update_animation():
 		anim.flip_h = true
 		anim.position.x = -10 
 	
+	# Эти переменные нужны для сокращения кода
+	var a = anim.animation
+	var vx = velocity.x
+	var vy = velocity.y
+	
 	# Меняем анимацию в зависимости от скорости персонажа и текущей анимации
-	if anim.animation != "jump" and anim.animation != "fall" and velocity.y < 0:
+	if a != "jump" and a != "fall" and vy < 0:
 		anim.play("jump")
-	elif anim.animation == "jump" and not anim.is_playing():
+	elif a == "jump" and not anim.is_playing():
 		anim.play("fall")
-	elif anim.animation != "fall" and velocity.y > 0:
+	elif a != "fall" and vy > 0:
 		anim.play("fall")
-	elif anim.animation == "fall" and velocity.y == 0:
+	elif a == "fall" and vy == 0:
 		anim.play("landing")
-	elif anim.animation == "landing" and not anim.is_playing():
+	elif a == "landing" and not anim.is_playing():
 		anim.play("idle")
-	elif velocity.x != 0 and velocity.y == 0:
-		anim.play("run")
-	elif anim.animation == "run" and velocity.x == 0:
+	elif vx != 0 and vy == 0:
+		if speed == run_speed:
+			anim.play("run")
+		else:
+			anim.play("walk")
+	elif (a == "run" or a == "walk") and vx == 0:
 		anim.play("idle")
