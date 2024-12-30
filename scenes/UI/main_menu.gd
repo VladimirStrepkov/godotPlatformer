@@ -1,9 +1,10 @@
 extends CanvasLayer
 
-
 func _on_exit_button_pressed() -> void:
 	Globals.quit_game()
 
-
 func _on_new_game_button_pressed() -> void:
-	Globals.change_scene("res://scenes/levels/level_1.tscn")
+	Globals.new_game()
+
+func _on_continue_button_pressed() -> void:
+	Globals.load_game()

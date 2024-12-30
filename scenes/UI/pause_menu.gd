@@ -18,5 +18,7 @@ func _on_exit_game_button_pressed() -> void:
 	Globals.quit_game()
 
 func _on_main_menu_button_pressed() -> void:
-	Globals.is_pause = false
 	Globals.change_scene("res://scenes/UI/main_menu.tscn")
+
+func _on_load_button_pressed() -> void:
+	Globals.load_game()

@@ -14,6 +14,11 @@ var jump_velocity: float = -400.0
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
+	Globals.connect("get_player_pos", get_player_pos)
+	global_position = Globals.start_player_pos
+
+func get_player_pos() -> void:
+	Globals.start_player_pos = global_position
 
 # Делаем спрайт игрока белым если игрок получил урон
 # Или делаем спрайт обычным если игрок вышел из неуязвимости
