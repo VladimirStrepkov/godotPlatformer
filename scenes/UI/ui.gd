@@ -5,4 +5,5 @@ func _ready() -> void:
 
 # Обновление статов в интерфейсе
 func stat_change() -> void:
-	$ProgressBar.value = 100 * (Globals.player_health / Globals.max_player_health)
+	$HBoxContainer/CenterContainer/TextureProgressBar.value = 100 * (Globals.player_health / Globals.max_player_health)
+	$HBoxContainer/CenterContainer2/Label.text = str(Globals.player_health) + "/" + str(Globals.max_player_health)

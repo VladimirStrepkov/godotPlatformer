@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=4 uid="uid://bqok43c51ltbl"]
+[gd_scene load_steps=10 format=4 uid="uid://bqok43c51ltbl"]
 
 [ext_resource type="PackedScene" uid="uid://rr4h5k7gf55n" path="res://scenes/UI/ui.tscn" id="1_cmynk"]
 [ext_resource type="PackedScene" uid="uid://byaj8hy1017wq" path="res://scenes/player/player.tscn" id="1_o2ach"]
+[ext_resource type="Script" path="res://scenes/levels/level_1.gd" id="1_skb11"]
 [ext_resource type="Texture2D" uid="uid://dgnxkonijvmet" path="res://sprites/world/1 Tiles/Tileset.png" id="2_e7ph4"]
 [ext_resource type="PackedScene" uid="uid://b4iwlfyae0rjq" path="res://scenes/background/bg.tscn" id="3_uk3wu"]
 [ext_resource type="PackedScene" uid="uid://2e0n444p7ome" path="res://scenes/traps/spike.tscn" id="4_wehq1"]
+[ext_resource type="PackedScene" uid="uid://bp0s85bec8hbh" path="res://scenes/UI/pause_menu.tscn" id="6_2ruct"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_swy86"]
 texture = ExtResource("2_e7ph4")
@@ -481,6 +483,7 @@ physics_layer_0/collision_mask = 5
 sources/0 = SubResource("TileSetAtlasSource_swy86")
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_skb11")
 
 [node name="UI" parent="." instance=ExtResource("1_cmynk")]
 
@@ -509,3 +512,6 @@ activity_time = 4.0
 position = Vector2(158, 107)
 idle_time = 2.0
 activity_time = 2.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_2ruct")]
+visible = false
