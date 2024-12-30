@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://qim2wi60cpnk"]
+
+[ext_resource type="Script" path="res://scenes/zones/camera_movement_zone.gd" id="1_k3fcn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmgke"]
+size = Vector2(120, 124)
+
+[node name="CameraMovementZone" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_k3fcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pmgke")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

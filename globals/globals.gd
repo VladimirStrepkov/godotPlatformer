@@ -16,6 +16,9 @@ var is_player_vulnerable: bool = true
 # Может ли игрок сохранить игру (т.е. рядом ли он с сейв-поинтом)
 var player_can_save: bool = false
 
+# Может ли игрок двигаться
+var player_can_move: bool = true
+
 # Стартовая позиция игрока на уровне (локации)
 var start_player_pos: Vector2
 # Получить текущую позицию игрока в start_player_pos
@@ -103,6 +106,8 @@ func hide_hint() -> void:
 # Показываем сообщение с определённым текстом
 func show_message(message_text:String) -> void:
 	ui_show_message.emit(message_text)
+
+
 
 
 # Сохраняем прогресс игры

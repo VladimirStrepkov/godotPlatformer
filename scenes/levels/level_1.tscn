@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bqok43c51ltbl"]
+[gd_scene load_steps=12 format=4 uid="uid://bqok43c51ltbl"]
 
 [ext_resource type="PackedScene" uid="uid://rr4h5k7gf55n" path="res://scenes/UI/ui.tscn" id="1_cmynk"]
 [ext_resource type="PackedScene" uid="uid://byaj8hy1017wq" path="res://scenes/player/player.tscn" id="1_o2ach"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://2e0n444p7ome" path="res://scenes/traps/spike.tscn" id="4_wehq1"]
 [ext_resource type="PackedScene" uid="uid://bp0s85bec8hbh" path="res://scenes/UI/pause_menu.tscn" id="6_2ruct"]
 [ext_resource type="PackedScene" uid="uid://cgdulp0uaaans" path="res://scenes/interactive_objects/save_point.tscn" id="8_4c8yw"]
+[ext_resource type="PackedScene" uid="uid://qim2wi60cpnk" path="res://scenes/zones/camera_movement_zone.tscn" id="9_owqhy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_swy86"]
 texture = ExtResource("2_e7ph4")
@@ -493,7 +494,7 @@ tile_map_data = PackedByteArray("AAD0/wQAAAADAAEAAAD0/wUAAAABAAIAAAD0/wYAAAABAAI
 tile_set = SubResource("TileSet_sb8mt")
 
 [node name="SavePoint" parent="." instance=ExtResource("8_4c8yw")]
-position = Vector2(-199, 46)
+position = Vector2(-187, 46)
 
 [node name="Player" parent="." instance=ExtResource("1_o2ach")]
 position = Vector2(39, 62)
@@ -519,3 +520,22 @@ activity_time = 2.0
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_2ruct")]
 visible = false
+
+[node name="CameraMovementZone" parent="." node_paths=PackedStringArray("markers_array", "camera") instance=ExtResource("9_owqhy")]
+position = Vector2(-419, -13)
+markers_array = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4")]
+camera = NodePath("../Player/Camera2D")
+movement_times = Array[float]([2.0, 2.0, 2.0, 2.0, 2.0])
+viewing_times = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+
+[node name="Marker2D" type="Marker2D" parent="CameraMovementZone"]
+position = Vector2(361, -119)
+
+[node name="Marker2D2" type="Marker2D" parent="CameraMovementZone"]
+position = Vector2(81, -323)
+
+[node name="Marker2D3" type="Marker2D" parent="CameraMovementZone"]
+position = Vector2(-355, -313)
+
+[node name="Marker2D4" type="Marker2D" parent="CameraMovementZone"]
+position = Vector2(-947, -19)

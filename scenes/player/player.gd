@@ -34,7 +34,7 @@ func _physics_process(delta):
 		velocity += get_gravity() * delta
 
 	# Прыжок
-	if Input.is_action_just_pressed("accept") and is_on_floor():
+	if Input.is_action_just_pressed("accept") and is_on_floor() and Globals.player_can_move:
 		velocity.y = jump_velocity
 		
 	# В зависимости от нажатия ctrl меняем скорость игрока (ходьба/бег)
@@ -45,7 +45,7 @@ func _physics_process(delta):
 
 	# В зависимости от нажатых кнопок меняем направление движения
 	var direction = Input.get_axis("left", "right")
-	if direction:
+	if direction and Globals.player_can_move:
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
