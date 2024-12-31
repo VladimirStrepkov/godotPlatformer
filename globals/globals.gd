@@ -4,8 +4,11 @@ extends Node
 # Путь к файлу сохранения
 var save_path = "user://savegame.save"
 
+# Главное меню
+const MAIN_MENU = "res://scenes/UI/main_menu.tscn"
+
 # текущий уровень (локация) на котором находится игрок
-var current_level: String
+var current_level: String = MAIN_MENU
 
 # уровни (локации)
 var level_1 = "res://scenes/levels/level_1.tscn"
@@ -100,7 +103,9 @@ func _ready() -> void:
 	PlayerInvulnerabilityTimer.connect("player_vulnerable", player_vulnerable)
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("esc"):
+	# Ставим на паузу при нажатии на esc во всех случаях кроме того, когда игрок в
+	# главном меню
+	if Input.is_action_just_pressed("esc") and current_level != MAIN_MENU:
 		is_pause = not is_pause
 	# Различные интеракции
 	if not is_pause:
@@ -124,6 +129,7 @@ func quit_game() -> void:
 
 # Переключение сцены
 func change_scene(scene_path : String) -> void:
+	current_level = scene_path
 	get_tree().change_scene_to_file(scene_path)
 	# Устанавливаем некоторые глобальные переменные в стандартные значения
 	is_pause = false

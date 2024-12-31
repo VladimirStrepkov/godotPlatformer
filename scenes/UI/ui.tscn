@@ -1,18 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://rr4h5k7gf55n"]
+[gd_scene load_steps=6 format=3 uid="uid://rr4h5k7gf55n"]
 
 [ext_resource type="Script" path="res://scenes/UI/ui.gd" id="1_jym26"]
 [ext_resource type="Theme" uid="uid://c40qggtdj17rp" path="res://themes/ui.tres" id="2_6aew3"]
 [ext_resource type="Texture2D" uid="uid://dq44d1lqwbvwd" path="res://sprites/ui/health_progress_bar_void.png" id="2_k4trs"]
 [ext_resource type="Texture2D" uid="uid://b5llyil1cv8jq" path="res://sprites/ui/health_progress_bar_full.png" id="3_m6a5i"]
+[ext_resource type="Texture2D" uid="uid://nsyrcuwuyw3u" path="res://sprites/ui/level_label.png" id="5_ur6si"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_jym26")
 
 [node name="NormalMode" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="VBoxContainer" parent="NormalMode"]
 layout_mode = 1
@@ -21,10 +24,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 202.5
-offset_top = 240.0
-offset_right = 326.5
-offset_bottom = 280.0
+offset_left = -62.0
+offset_top = -40.0
+offset_right = 62.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
@@ -59,10 +61,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 201.0
-offset_top = 128.5
-offset_right = 328.0
-offset_bottom = 151.5
+offset_left = -63.5
+offset_top = -11.5
+offset_right = 63.5
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_6aew3")
@@ -80,6 +82,40 @@ text = "Сообщение для пользователя"
 [node name="MessageLifeTimer" type="Timer" parent="NormalMode/Message"]
 wait_time = 3.0
 one_shot = true
+
+[node name="LevelLabel" type="TextureRect" parent="NormalMode"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+offset_left = -60.0
+offset_right = 60.0
+offset_bottom = 32.0
+grow_horizontal = 2
+texture = ExtResource("5_ur6si")
+
+[node name="CenterContainer" type="CenterContainer" parent="NormalMode/LevelLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -20.0
+offset_right = 20.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NormalMode/LevelLabel/CenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_6aew3")
+text = "Подземелье драконов"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MovieMode" type="Control" parent="."]
 visible = false
