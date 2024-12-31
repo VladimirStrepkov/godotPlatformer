@@ -22,6 +22,8 @@ extends Area2D
 
 # Игрок вошёл в зону
 func _on_body_entered(_body: Node2D) -> void:
+	# Включаем "режим кино" в UI
+	Globals.switch_ui_mode()
 	# "Обездвиживаем" игрока
 	Globals.player_can_move = false
 	# n - количество маркеров
@@ -30,8 +32,9 @@ func _on_body_entered(_body: Node2D) -> void:
 	# Запоминаем начальное расположение камеры (игрок)
 	var start_position = camera.global_position
 	for i in range(n):
-		# Смотрим какое-то время на точку
-		await get_tree().create_timer(viewing_times[i]).timeout
+		# Смотрим какое-то время на точку, если этот узел существует
+		if is_inside_tree():
+			await get_tree().create_timer(viewing_times[i]).timeout
 		# летим к следующей точке
 		tween = get_tree().create_tween()
 		tween.tween_property(camera, "global_position", markers_array[i].global_position, movement_times[i])
@@ -49,6 +52,9 @@ func _on_body_entered(_body: Node2D) -> void:
 	
 	# Игрок снова может двигаться
 	Globals.player_can_move = true
+	
+	# Выключаем "режим кино" в ui
+	Globals.switch_ui_mode()
 	
 	# Удаляем все маркеры
 	for marker in markers_array:

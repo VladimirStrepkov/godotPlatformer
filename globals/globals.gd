@@ -90,6 +90,7 @@ func quit_game() -> void:
 func change_scene(scene_path : String) -> void:
 	get_tree().change_scene_to_file(scene_path)
 	is_pause = false
+	player_can_move = true
 	
 # Обновляем интерфейс
 func stat_change() -> void:
@@ -107,8 +108,20 @@ func hide_hint() -> void:
 func show_message(message_text:String) -> void:
 	ui_show_message.emit(message_text)
 
+signal ui_mode_switch
+# Переключаем режим UI (normal_mode/movie_mode)
+func switch_ui_mode() -> void:
+	ui_mode_switch.emit()
 
+signal camera_zoom()
+# Увеличиваем масштаб камеры
+func zoom_camera() -> void:
+	camera_zoom.emit()
 
+signal camera_zoom_out()
+# Уменьшаем масштаб камеры
+func zoom_out_camera() -> void:
+	camera_zoom_out.emit()
 
 # Сохраняем прогресс игры
 func save_game() -> void:

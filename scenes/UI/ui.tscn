@@ -8,23 +8,31 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_jym26")
 
-[node name="HBoxContainer" type="VBoxContainer" parent="."]
+[node name="NormalMode" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="NormalMode"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -62.0
-offset_top = -40.0
-offset_right = 62.0
+offset_left = 202.5
+offset_top = 240.0
+offset_right = 326.5
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="NormalMode/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer/CenterContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="NormalMode/HBoxContainer/CenterContainer"]
 modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -32,10 +40,10 @@ value = 100.0
 texture_under = ExtResource("2_k4trs")
 texture_progress = ExtResource("3_m6a5i")
 
-[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="NormalMode/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/CenterContainer2"]
+[node name="Label" type="Label" parent="NormalMode/HBoxContainer/CenterContainer2"]
 modulate = Color(1, 0, 0, 0.784314)
 layout_mode = 2
 theme = ExtResource("2_6aew3")
@@ -43,32 +51,62 @@ text = "300/300"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Hint" type="Label" parent="."]
+[node name="Hint" type="Label" parent="NormalMode"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = 201.0
+offset_top = 128.5
+offset_right = 328.0
+offset_bottom = 151.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_6aew3")
 text = "E чтобы сохраниться"
 horizontal_alignment = 1
 
-[node name="Message" type="Label" parent="."]
+[node name="Message" type="Label" parent="NormalMode"]
 visible = false
-offset_right = 40.0
+layout_mode = 0
+offset_right = 174.0
 offset_bottom = 23.0
 theme = ExtResource("2_6aew3")
 text = "Сообщение для пользователя"
 
-[node name="MessageLifeTimer" type="Timer" parent="Message"]
+[node name="MessageLifeTimer" type="Timer" parent="NormalMode/Message"]
 wait_time = 3.0
 one_shot = true
 
-[connection signal="timeout" from="Message/MessageLifeTimer" to="." method="_on_message_life_timer_timeout"]
+[node name="MovieMode" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MovieMode"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.1
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="MovieMode"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="timeout" from="NormalMode/Message/MessageLifeTimer" to="." method="_on_message_life_timer_timeout"]
