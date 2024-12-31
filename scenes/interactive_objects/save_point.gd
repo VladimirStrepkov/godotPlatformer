@@ -1,11 +1,10 @@
-extends Area2D
+extends InteractiveObject
 
-func _on_body_entered(_body: Node2D) -> void:
-	Globals.show_hint("E - сохраниться")
+func _ready() -> void:
+	hint_text = "E - сохраниться"
+
+func when_player_in() -> void:
 	Globals.player_can_save = true
-	$InteractivityIcon.hide()
 
-func _on_body_exited(_body: Node2D) -> void:
-	Globals.hide_hint()
+func  when_player_out() -> void:
 	Globals.player_can_save = false
-	$InteractivityIcon.show()

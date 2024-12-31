@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=4 uid="uid://diuea6smn1npf"]
+
+[ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_uhj8m"]
+
+[node name="Level2" instance=ExtResource("1_uhj8m")]
+
+[node name="Player" parent="." index="2"]
+position = Vector2(16, -148)
+
+[node name="TileMapLayer" parent="." index="3"]
+tile_map_data = PackedByteArray("AAD//wUAAAABAAAAAAD//wYAAAADAAEAAAAAAAUAAAABAAAAAAAAAAYAAAADAAEAAAABAAUAAAABAAAAAAABAAYAAAADAAEAAAA=")

@@ -1,98 +1,83 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgdulp0uaaans"]
+[gd_scene load_steps=14 format=3 uid="uid://dtahajpuaycm0"]
 
 [ext_resource type="Texture2D" uid="uid://cjjtmfvnb42ln" path="res://sprites/world/3 Objects/bonfire.png" id="1_2r1un"]
+[ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_d86ys"]
 [ext_resource type="Script" path="res://scenes/interactive_objects/save_point.gd" id="1_g6gj0"]
 [ext_resource type="Texture2D" uid="uid://mu244illimus" path="res://sprites/effects/fire/orange/loops/burning_loop_2.png" id="2_a71jm"]
-[ext_resource type="PackedScene" uid="uid://b4ayfq4jrifue" path="res://scenes/UI/interactivity_icon.tscn" id="3_mdaq4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0pkx5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnm1i"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(0, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yjgxi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yrve"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(20, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kbnow"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vken"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(40, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ikel"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdy5y"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(60, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kuvq3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvsq1"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(80, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fmkcw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfda7"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(100, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3exc0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kau8"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(120, 0, 20, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8kxs4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmdqa"]
 atlas = ExtResource("2_a71jm")
 region = Rect2(140, 0, 20, 24)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0ouoc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_uo4p2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0pkx5")
+"texture": SubResource("AtlasTexture_dnm1i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yjgxi")
+"texture": SubResource("AtlasTexture_7yrve")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kbnow")
+"texture": SubResource("AtlasTexture_0vken")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3ikel")
+"texture": SubResource("AtlasTexture_mdy5y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kuvq3")
+"texture": SubResource("AtlasTexture_gvsq1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fmkcw")
+"texture": SubResource("AtlasTexture_cfda7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3exc0")
+"texture": SubResource("AtlasTexture_2kau8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8kxs4")
+"texture": SubResource("AtlasTexture_jmdqa")
 }],
 "loop": true,
 "name": &"default",
 "speed": 7.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkiba"]
-size = Vector2(68, 56)
-
-[node name="SavePoint" type="Area2D"]
-collision_layer = 32
+[node name="SavePoint" instance=ExtResource("1_d86ys")]
 script = ExtResource("1_g6gj0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -5)
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+position = Vector2(0, -8)
 texture = ExtResource("1_2r1un")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -14)
-sprite_frames = SubResource("SpriteFrames_0ouoc")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
+position = Vector2(0, -17)
+sprite_frames = SubResource("SpriteFrames_uo4p2")
 autoplay = "default"
-frame = 5
-frame_progress = 0.73632
-
-[node name="InteractivityIcon" parent="." instance=ExtResource("3_mdaq4")]
-position = Vector2(0, -44)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -25)
-shape = SubResource("RectangleShape2D_wkiba")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+frame_progress = 0.460333

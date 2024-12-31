@@ -9,6 +9,13 @@ var current_level: String
 
 # уровни (локации)
 var level_1 = "res://scenes/levels/level_1.tscn"
+var level_2 = "res://scenes/levels/level_2.tscn"
+
+# Названия уровней локаций
+var level_names: Dictionary = {
+	level_1 : "Уровень 1",
+	level_2 : "Уровень 2"
+}
 
 # уязвим ли игрок
 var is_player_vulnerable: bool = true
@@ -19,10 +26,10 @@ var player_can_save: bool = false
 # Может ли игрок двигаться
 var player_can_move: bool = true
 
-# Стартовая позиция игрока на уровне (локации)
-var start_player_pos: Vector2
-# Получить текущую позицию игрока в start_player_pos
-signal get_player_pos()
+# Может ли игрок перейти на следующий уровень
+var player_can_go_next_level: bool = false
+# На какой именно уровень он может перейти
+var next_level_path: String
 
 # Переключение белого цвета спрайта игрока (при получении урона/конце неуязвимости)
 signal switch_player_white_color
@@ -74,9 +81,15 @@ func _process(_delta: float) -> void:
 		is_pause = not is_pause
 	# Различные интеракции
 	if not is_pause:
+		# Сохранение игры на костре
 		if Input.is_action_just_pressed("interact") and player_can_save:
 			save_game()
 			show_message("Игра сохранена")
+		# Переход на другой уровень
+		elif Input.is_action_just_pressed("interact") and player_can_go_next_level:
+			# При загрузке уровня через интеракцию узлы имеют стандартные значения свойств
+			nodes_take_data_from_globals = false
+			change_scene(next_level_path)
 
 func player_vulnerable() -> void:
 	is_player_vulnerable = true
@@ -123,6 +136,16 @@ signal camera_zoom_out()
 func zoom_out_camera() -> void:
 	camera_zoom_out.emit()
 
+# Данные узла игрока для сохранения
+var player_data: Dictionary
+# Получить данные узла игрока
+signal get_player_data
+
+# Если значение этой переменной - true, то при загрузке новой сцены определённые
+# узлы будут брать значения для некоторых своих свойств из globals
+# Это нужно для загрузки сохранённых об узлах данных
+var nodes_take_data_from_globals: bool = false
+
 # Сохраняем прогресс игры
 func save_game() -> void:
 	# Открываем файл сохранения на запись
@@ -132,31 +155,35 @@ func save_game() -> void:
 	file.store_var(max_player_health)
 	file.store_var(player_health)
 	
-	get_player_pos.emit()
-	file.store_var(start_player_pos)
-	
+	get_player_data.emit()
+	file.store_var(player_data)
 
 # Загружаем ранее сохранённую игру
 func load_game() -> void:
 	# Проверяем, существует ли файл сохранения
-	if FileAccess.file_exists(save_path):
-		# Открываем файл сохранения на чтение
-		var file = FileAccess.open(save_path, FileAccess.READ)
-		# Получаем сохранённые данные
-		current_level = file.get_var()
-		max_player_health = file.get_var()
-		player_health = file.get_var()
-		
-		start_player_pos = file.get_var()
+	if not FileAccess.file_exists(save_path):
+		print("Ошибка, файла сохранения не существует")
+		return
+	# Открываем файл сохранения на чтение
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	# Получаем сохранённые данные
+	current_level = file.get_var()
+	max_player_health = file.get_var()
+	player_health = file.get_var()
 	
-		# Загружаем сцену, которая была в файле сохранения
-		change_scene(current_level)
+	player_data = file.get_var()
+	
+	# Узлы берут значения из globals
+	nodes_take_data_from_globals = true
+	
+	# Загружаем сцену, которая была в файле сохранения
+	change_scene(current_level)
 
 # Начинаем новую игру, все глобальные игровые переменные возвращаются к начальным значениям
 func new_game() -> void:
-	current_level = level_1
-	max_player_health = 300
-	player_health = max_player_health
-	start_player_pos = Vector2.ZERO
+	current_level = level_1              # Начальный уровень
+	max_player_health = 300              # Начальное макс. здоровье
+	player_health = max_player_health    # Начальное здоровье
+	nodes_take_data_from_globals = false # У всех узлов значения по умолчанию
 	# Загружаем первую сцену
 	change_scene(current_level)

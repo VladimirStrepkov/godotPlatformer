@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2hroljqhw21j"]
+
+[ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_07yt5"]
+[ext_resource type="Script" path="res://scenes/interactive_objects/transition.gd" id="1_yg6kw"]
+
+[node name="Transition" instance=ExtResource("1_07yt5")]
+script = ExtResource("1_yg6kw")
+level_path = ""

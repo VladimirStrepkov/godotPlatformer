@@ -14,11 +14,31 @@ var jump_velocity: float = -400.0
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
-	Globals.connect("get_player_pos", get_player_pos)
-	global_position = Globals.start_player_pos
+	Globals.connect("get_player_data", get_player_data)
+	
+	# Берём значения свойств этого узла из globals
+	if Globals.nodes_take_data_from_globals:
+		set_player_data()
 
-func get_player_pos() -> void:
-	Globals.start_player_pos = global_position
+# Функция передачи данных об узле (значений свойств узла) скрипту globals
+func get_player_data() -> void:
+	Globals.player_data = {
+		"global_position" : global_position
+	}
+
+# Узел берёт значения для некоторых своих свойств из globals
+func set_player_data() -> void:
+	# Проходимся по ключам словаря
+	for property in Globals.player_data.keys():
+		set(property, Globals.player_data[property])
+
+# Функция сохранения узла (какие данные об узле нужно сохранять)
+# Т.к. узел находится в группе "SavedNodes", эта функция будет вызываться при сохранении прогресса
+func save() -> Dictionary:
+	var save_dict = {
+		"global_position" : global_position
+	}
+	return save_dict
 
 # Делаем спрайт игрока белым если игрок получил урон
 # Или делаем спрайт обычным если игрок вышел из неуязвимости

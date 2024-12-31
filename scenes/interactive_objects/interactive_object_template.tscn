@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgmcws8plyt4"]
+
+[ext_resource type="Script" path="res://scenes/interactive_objects/interactive_object_template.gd" id="1_c35fy"]
+[ext_resource type="PackedScene" uid="uid://b4ayfq4jrifue" path="res://scenes/UI/interactivity_icon.tscn" id="2_ua542"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itgei"]
+size = Vector2(64, 220.75)
+
+[node name="InteractiveObjectTemplate" type="Area2D"]
+script = ExtResource("1_c35fy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -102.375)
+shape = SubResource("RectangleShape2D_itgei")
+
+[node name="InteractivityIcon" parent="." instance=ExtResource("2_ua542")]
+position = Vector2(0, -73)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
