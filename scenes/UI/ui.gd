@@ -10,6 +10,9 @@ func _ready() -> void:
 	Globals.connect("ui_show_message", show_message)
 	Globals.connect("ui_mode_switch", ui_mode_switch)
 	stat_change()
+	# Интерфейс всегда плавно появляется из темноты
+	var tween = get_tree().create_tween()
+	tween.tween_property($BlackScreen, "color:a", 0, 4)
 
 # Переключаем режим UI (normal_mode/movie_mode)
 func ui_mode_switch() -> void:

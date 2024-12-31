@@ -9,16 +9,24 @@ var run_speed: float = 100.0
 # Высота прыжка игрока
 var jump_velocity: float = -400.0
 
+# Умер ли персонаж игрока (когда кончается здоровье)
+var does_player_died: bool = false
+
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
 	Globals.connect("get_player_data", get_player_data)
+	Globals.connect("player_died", player_died)
 	
 	# Берём значения свойств этого узла из globals
 	if Globals.nodes_take_data_from_globals:
 		set_player_data()
+
+# Функция смерти игрока
+func player_died() -> void:
+	does_player_died = true
 
 # Функция передачи данных об узле (значений свойств узла) скрипту globals
 func get_player_data() -> void:
@@ -89,6 +97,9 @@ func update_animation():
 	var vy = velocity.y
 	
 	# Меняем анимацию в зависимости от скорости персонажа и текущей анимации
+	if does_player_died:
+		if a != "death":
+			anim.play("death")
 	if a != "jump" and a != "fall" and vy < 0:
 		anim.play("jump")
 	elif a == "jump" and not anim.is_playing():

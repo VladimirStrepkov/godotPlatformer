@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=4 uid="uid://diuea6smn1npf"]
+[gd_scene load_steps=3 format=4 uid="uid://diuea6smn1npf"]
 
 [ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_uhj8m"]
+[ext_resource type="PackedScene" uid="uid://d2hroljqhw21j" path="res://scenes/interactive_objects/transition.tscn" id="2_e21m6"]
 
 [node name="Level2" instance=ExtResource("1_uhj8m")]
+
+[node name="Transition" parent="Objects" index="0" instance=ExtResource("2_e21m6")]
+position = Vector2(8, 74)
+level_path = "res://scenes/levels/level_1.tscn"
 
 [node name="Player" parent="." index="2"]
 position = Vector2(16, -148)

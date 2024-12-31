@@ -1,9 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://byaj8hy1017wq"]
+[gd_scene load_steps=39 format=3 uid="uid://byaj8hy1017wq"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_buplv"]
 [ext_resource type="Shader" path="res://shaders/white_color.gdshader" id="1_wdu6e"]
 [ext_resource type="Texture2D" uid="uid://bil26yhjmd34k" path="res://sprites/characters/1 Woodcutter/Woodcutter_idle.png" id="2_6f6jo"]
 [ext_resource type="Texture2D" uid="uid://835v3ps8kxcl" path="res://sprites/characters/1 Woodcutter/Woodcutter_jump.png" id="2_kdqpa"]
+[ext_resource type="Texture2D" uid="uid://bu564yl3tb318" path="res://sprites/characters/1 Woodcutter/Woodcutter_death.png" id="3_7n8wb"]
 [ext_resource type="Texture2D" uid="uid://crc8st0fvk3xh" path="res://sprites/characters/1 Woodcutter/Woodcutter_run.png" id="4_1mnfp"]
 [ext_resource type="Texture2D" uid="uid://dmc8dsvceypem" path="res://sprites/characters/1 Woodcutter/Woodcutter_walk.png" id="5_khipb"]
 
@@ -15,6 +16,30 @@ resource_local_to_scene = true
 shader = ExtResource("1_wdu6e")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/progress = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6f7y"]
+atlas = ExtResource("3_7n8wb")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i72yl"]
+atlas = ExtResource("3_7n8wb")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tk17k"]
+atlas = ExtResource("3_7n8wb")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctpt8"]
+atlas = ExtResource("3_7n8wb")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f71ml"]
+atlas = ExtResource("3_7n8wb")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_netde"]
+atlas = ExtResource("3_7n8wb")
+region = Rect2(240, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kyc0"]
 atlas = ExtResource("2_kdqpa")
@@ -106,6 +131,29 @@ region = Rect2(96, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eemjy"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6f7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i72yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tk17k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctpt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f71ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_netde")
+}],
+"loop": false,
+"name": &"death",
+"speed": 9.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5kyc0")
@@ -218,5 +266,7 @@ shape = SubResource("RectangleShape2D_63te6")
 material = SubResource("ShaderMaterial_xi2pj")
 position = Vector2(-10, -8)
 sprite_frames = SubResource("SpriteFrames_eemjy")
-animation = &"walk"
+animation = &"death"
+frame = 5
+frame_progress = 1.0
 flip_h = true

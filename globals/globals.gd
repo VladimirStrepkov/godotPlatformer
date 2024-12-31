@@ -31,6 +31,9 @@ var player_can_go_next_level: bool = false
 # На какой именно уровень он может перейти
 var next_level_path: String
 
+# Умер ли персонаж игрока
+var does_player_died: bool = false
+
 # Переключение белого цвета спрайта игрока (при получении урона/конце неуязвимости)
 signal switch_player_white_color
 
@@ -59,16 +62,36 @@ var is_pause: bool = false:
 var max_player_health: float
 var player_health: float:
 	set(value):
+		# Здоровье игрока нельзя изменять если персонаж игрока умер
+		if does_player_died:
+			return
 		if value > player_health:
 			player_health = min(value, max_player_health)
 		else:
 			if is_player_vulnerable:
-				player_health = value
+				player_health = max(value, 0)
 				is_player_vulnerable = false
 				PlayerInvulnerabilityTimer.start()
 				switch_player_white_color.emit()
+				# Смерть персонажа игрока
+				if player_health == 0:
+					player_death()
 		stat_change()
 
+
+signal player_died
+func player_death() -> void:
+	does_player_died = true
+	# Сообщаем узлу игрока что персонаж погиб
+	player_died.emit()
+	# обездвиживаем игрока
+	player_can_move = false
+	# Ждём немного времени (с учетом паузы, поэтому process_always=false)
+	await get_tree().create_timer(5, false).timeout
+	# Загружаем последнее сохранение, если состояние персонажа всё ещё "умер"
+	# т.е. если игрок сам не перешёл в другую сцену через меню паузы
+	if does_player_died:
+		load_game()
 
 func _ready() -> void:
 	# Этот скрипт обрабатывается всегда независимо от паузы
@@ -102,8 +125,10 @@ func quit_game() -> void:
 # Переключение сцены
 func change_scene(scene_path : String) -> void:
 	get_tree().change_scene_to_file(scene_path)
+	# Устанавливаем некоторые глобальные переменные в стандартные значения
 	is_pause = false
 	player_can_move = true
+	does_player_died = false
 	
 # Обновляем интерфейс
 func stat_change() -> void:
@@ -167,17 +192,17 @@ func load_game() -> void:
 	# Открываем файл сохранения на чтение
 	var file = FileAccess.open(save_path, FileAccess.READ)
 	# Получаем сохранённые данные
+	
 	current_level = file.get_var()
+	# Узлы берут значения из globals
+	nodes_take_data_from_globals = true
+	# Загружаем сцену, которая была в файле сохранения
+	change_scene(current_level)
+	
 	max_player_health = file.get_var()
 	player_health = file.get_var()
 	
 	player_data = file.get_var()
-	
-	# Узлы берут значения из globals
-	nodes_take_data_from_globals = true
-	
-	# Загружаем сцену, которая была в файле сохранения
-	change_scene(current_level)
 
 # Начинаем новую игру, все глобальные игровые переменные возвращаются к начальным значениям
 func new_game() -> void:
