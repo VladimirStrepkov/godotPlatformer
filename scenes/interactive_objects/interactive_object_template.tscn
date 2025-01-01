@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://b4ayfq4jrifue" path="res://scenes/UI/interactivity_icon.tscn" id="2_ua542"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itgei"]
-size = Vector2(64, 220.75)
+size = Vector2(64, 104)
 
 [node name="InteractiveObjectTemplate" type="Area2D"]
 script = ExtResource("1_c35fy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -102.375)
+position = Vector2(0, -44)
 shape = SubResource("RectangleShape2D_itgei")
 
 [node name="InteractivityIcon" parent="." instance=ExtResource("2_ua542")]

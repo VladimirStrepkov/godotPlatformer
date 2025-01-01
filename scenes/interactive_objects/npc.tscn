@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4jdumjcjvruk"]
+
+[ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_ifpwk"]
+[ext_resource type="Script" path="res://scenes/interactive_objects/npc.gd" id="2_xihu5"]
+
+[node name="NPC" instance=ExtResource("1_ifpwk")]
+script = ExtResource("2_xihu5")
+anim_left_x = 0
+anim_right_x = 0
+
+[node name="IdleTimer" type="Timer" parent="." index="2"]
+one_shot = true
+
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
