@@ -4,6 +4,8 @@ extends CanvasLayer
 var movie_mode: bool = false
 
 func _ready() -> void:
+	# Показываем этот узел даже если он был скрыт в редакторе
+	self.show()
 	Globals.connect("ui_stat_change", stat_change)
 	Globals.connect("ui_show_hint", show_hint)
 	Globals.connect("ui_hide_hint", hide_hint)

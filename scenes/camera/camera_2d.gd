@@ -1,8 +1,15 @@
 extends Camera2D
 
+# Правая и левая границы камеры
+@export var left_limit: Marker2D
+@export var right_limit: Marker2D
+
 func _ready() -> void:
 	Globals.connect("camera_zoom", camera_zoom)
 	Globals.connect("camera_zoom_out", camera_zoom_out)
+	# Устанавливаю границы для камеры
+	self.limit_left = int(left_limit.global_position.x)
+	self.limit_right = int(right_limit.global_position.x)
 
 func camera_zoom() -> void:
 	# Проверяем, находится ли текущий узел внутри дерева узлов

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dm87qxkt7mr3l"]
+[gd_scene load_steps=14 format=4 uid="uid://dm87qxkt7mr3l"]
 
 [ext_resource type="Script" path="res://scenes/levels/level_template.gd" id="1_2fqoo"]
 [ext_resource type="PackedScene" uid="uid://b4iwlfyae0rjq" path="res://scenes/background/bg.tscn" id="1_75w8a"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://qcsymnj70r2o" path="res://scenes/camera/camera_2d.tscn" id="3_acxv1"]
 [ext_resource type="Texture2D" uid="uid://dgnxkonijvmet" path="res://sprites/world/1 Tiles/Tileset.png" id="4_nvm3v"]
 [ext_resource type="PackedScene" uid="uid://rr4h5k7gf55n" path="res://scenes/UI/ui.tscn" id="5_pvnpn"]
+[ext_resource type="Texture2D" uid="uid://2pgfbpsyb7go" path="res://sprites/world/3 Objects/Ladders/ladder_tilesheet.png" id="6_ld15x"]
 [ext_resource type="PackedScene" uid="uid://bp0s85bec8hbh" path="res://scenes/UI/pause_menu.tscn" id="6_yj2so"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5laxp"]
@@ -482,24 +483,78 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 5
 sources/0 = SubResource("TileSetAtlasSource_5laxp")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wvwy7"]
+texture = ExtResource("6_ld15x")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_pqmvv"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_wvwy7")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ge16j"]
+size = Vector2(14.75, 433.5)
+
 [node name="LevelTemplate" type="Node2D"]
 script = ExtResource("1_2fqoo")
 
 [node name="BG" parent="." instance=ExtResource("1_75w8a")]
+visible = false
 
 [node name="Objects" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("2_gr7ek")]
+[node name="TileMapLayers" type="Node2D" parent="."]
 
-[node name="Camera2D" parent="Player" instance=ExtResource("3_acxv1")]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="LandTilesLayer" type="TileMapLayer" parent="TileMapLayers"]
 tile_map_data = PackedByteArray("AAD+/wMAAAADAAEAAAD//wMAAAADAAEAAAAAAAMAAAADAAEAAAD+/wIAAAABAAAAAAD//wIAAAABAAAAAAAAAAIAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_33l38")
+
+[node name="LadderTilesLayer" type="TileMapLayer" parent="TileMapLayers"]
+tile_set = SubResource("TileSet_pqmvv")
+
+[node name="LadderAreas" type="Node2D" parent="TileMapLayers"]
+
+[node name="Player" parent="." instance=ExtResource("2_gr7ek")]
+
+[node name="Camera2D" parent="Player" node_paths=PackedStringArray("left_limit", "right_limit") instance=ExtResource("3_acxv1")]
+left_limit = NodePath("../../Limits/LeftCameraLimit")
+right_limit = NodePath("../../Limits/RightCameraLimit")
 
 [node name="Traps" type="Node2D" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("5_pvnpn")]
+visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_yj2so")]
 visible = false
+
+[node name="Limits" type="Node2D" parent="."]
+
+[node name="LeftCameraLimit" type="Marker2D" parent="Limits"]
+position = Vector2(-140, -10)
+
+[node name="RightCameraLimit" type="Marker2D" parent="Limits"]
+position = Vector2(172, -12)
+
+[node name="LeftBorder" type="StaticBody2D" parent="Limits"]
+position = Vector2(-130, -9)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/LeftBorder"]
+position = Vector2(2, 5)
+shape = SubResource("RectangleShape2D_ge16j")
+
+[node name="RightBorder" type="StaticBody2D" parent="Limits"]
+position = Vector2(152, -13)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/RightBorder"]
+position = Vector2(2, 5)
+shape = SubResource("RectangleShape2D_ge16j")
