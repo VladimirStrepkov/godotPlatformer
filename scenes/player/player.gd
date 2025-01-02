@@ -9,6 +9,12 @@ var run_speed: float = 100.0
 # Высота прыжка игрока
 var jump_velocity: float = -400.0
 
+# Скорость которую добавляет рывок (после рывка постепенно уменьшается до 0)
+var dash_speed: float = 0:
+	set(value):
+		# не может быть отрицательным
+		dash_speed = max(0, value)
+
 # Взбирается ли игрок по лестнице
 var player_climbs: bool = false
 # Может ли игрок взбираться по лестнице
@@ -20,7 +26,12 @@ var player_can_climb: bool = false:
 			player_climbs = false
 
 # Умер ли персонаж игрока (когда кончается здоровье)
-var does_player_died: bool = false
+var does_player_died: bool = false:
+	set(value):
+		does_player_died = value
+		# Если игрок умирает, то он слетает с лестницы
+		if value:
+			player_climbs = false
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -88,7 +99,7 @@ func _physics_process(delta):
 	# Выбираем направление движения по лестнице
 	var ladder_direction = Input.get_axis("top", "down")
 	# Добавляем движение
-	if player_climbs:
+	if player_climbs and Globals.player_can_move:
 		velocity.y = ladder_direction * 30
 		
 	# В зависимости от нажатия ctrl меняем скорость игрока (ходьба/бег)
@@ -96,6 +107,13 @@ func _physics_process(delta):
 		speed = walk_speed
 	else:
 		speed = run_speed
+	
+	# Если нажата клавиша shift, то персонаж совершает рывок
+	if Input.is_action_just_pressed("shift") and Globals.player_can_move and $Timers/DashTimer.is_stopped():
+		dash_speed = 300
+		$Timers/DashTimer.start()
+	speed += dash_speed
+	dash_speed -= 20
 
 	# В зависимости от нажатых кнопок меняем направление движения
 	var direction = Input.get_axis("left", "right")
@@ -127,7 +145,10 @@ func update_animation():
 	if does_player_died:
 		if a != "death":
 			anim.play("death")
-	if player_climbs:
+	elif dash_speed > 0:
+		if a != "dash":
+			anim.play("dash")
+	elif player_climbs:
 		# Если игрок неподвижно стоит на лестнице, то ставим анимацию на паузу
 		if a != "climb" or vy == 0:
 			anim.play("climb")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://byaj8hy1017wq"]
+[gd_scene load_steps=47 format=3 uid="uid://byaj8hy1017wq"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_buplv"]
 [ext_resource type="Shader" path="res://shaders/white_color.gdshader" id="1_wdu6e"]
@@ -40,6 +40,10 @@ region = Rect2(192, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yb2tg"]
 atlas = ExtResource("3_53nmr")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qp37"]
+atlas = ExtResource("4_1mnfp")
 region = Rect2(240, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g6f7y"]
@@ -181,6 +185,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4qp37")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_g6f7y")
 }, {
 "duration": 1.0,
@@ -314,5 +326,11 @@ shape = SubResource("RectangleShape2D_63te6")
 material = SubResource("ShaderMaterial_xi2pj")
 position = Vector2(-10, -8)
 sprite_frames = SubResource("SpriteFrames_eemjy")
-animation = &"idle"
+animation = &"climb"
 flip_h = true
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true

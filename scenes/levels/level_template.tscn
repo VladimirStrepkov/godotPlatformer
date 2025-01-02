@@ -511,6 +511,7 @@ visible = false
 [node name="TileMapLayers" type="Node2D" parent="."]
 
 [node name="LandTilesLayer" type="TileMapLayer" parent="TileMapLayers"]
+z_index = 1
 tile_map_data = PackedByteArray("AAD+/wMAAAADAAEAAAD//wMAAAADAAEAAAAAAAMAAAADAAEAAAD+/wIAAAABAAAAAAD//wIAAAABAAAAAAAAAAIAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_33l38")
 
