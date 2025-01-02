@@ -38,3 +38,18 @@ position = Vector2(-502, 62)
 
 [node name="Marker2D2" type="Marker2D" parent="Jack" index="2"]
 position = Vector2(-316, 56)
+
+[node name="Don" type="Node2D" parent="." index="10"]
+
+[node name="Jack" parent="Don" index="0" node_paths=PackedStringArray("left_limit_of_movement", "right_limit_of_movement") instance=ExtResource("5_xvhib")]
+position = Vector2(360, 96)
+left_limit_of_movement = NodePath("../Marker2D2")
+right_limit_of_movement = NodePath("../Marker2D")
+npc_name = "Дон"
+dialogue_number = 2
+
+[node name="Marker2D" type="Marker2D" parent="Don" index="1"]
+position = Vector2(503, 72)
+
+[node name="Marker2D2" type="Marker2D" parent="Don" index="2"]
+position = Vector2(185, 74)

@@ -7,6 +7,8 @@
 script = ExtResource("2_xihu5")
 anim_left_x = 0
 anim_right_x = 0
+npc_name = ""
+dialogue_number = 0
 
 [node name="IdleTimer" type="Timer" parent="." index="2"]
 one_shot = true

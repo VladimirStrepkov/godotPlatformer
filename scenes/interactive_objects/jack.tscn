@@ -91,6 +91,8 @@ animations = [{
 anim = NodePath("AnimatedSprite2D")
 anim_left_x = -12
 anim_right_x = 12
+npc_name = "Джек"
+dialogue_number = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
 position = Vector2(12, -24)

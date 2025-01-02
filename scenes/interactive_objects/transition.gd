@@ -7,7 +7,7 @@ func _ready() -> void:
 	# Пишем название уровня, на который может перейти игрок
 	hint_text = "E - перейти в \"" + Globals.level_names[level_path] + "\""
 
-func when_player_in():
+func when_player_in(_player_body):
 	Globals.player_can_go_next_level = true
 	Globals.next_level_path = level_path
 

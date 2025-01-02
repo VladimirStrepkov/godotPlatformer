@@ -37,6 +37,12 @@ var next_level_path: String
 # Умер ли персонаж игрока
 var does_player_died: bool = false
 
+# Информация о диалогах
+var dialogue_info: Dictionary = {
+	"player_can" : false,    # Может ли игрок сейчас начать диалог
+	"npс" : null             # С каким НПС игрок может начать диалог
+}
+
 # Переключение белого цвета спрайта игрока (при получении урона/конце неуязвимости)
 signal switch_player_white_color
 
@@ -103,10 +109,13 @@ func _ready() -> void:
 	PlayerInvulnerabilityTimer.connect("player_vulnerable", player_vulnerable)
 
 func _process(_delta: float) -> void:
-	# Ставим на паузу при нажатии на esc во всех случаях кроме того, когда игрок в
-	# главном меню
+	# Если игрок не в главном меню и нажимает esc, то он либо переключает паузу,
+	# либо выходит из диалога (если он в диалоге)
 	if Input.is_action_just_pressed("esc") and current_level != MAIN_MENU:
-		is_pause = not is_pause
+		if DialogueController.dialogue:
+			DialogueController.dialogue_finish()
+		else:
+			is_pause = not is_pause
 	# Различные интеракции
 	if not is_pause:
 		# Сохранение игры на костре
@@ -118,6 +127,13 @@ func _process(_delta: float) -> void:
 			# При загрузке уровня через интеракцию узлы имеют стандартные значения свойств
 			nodes_take_data_from_globals = false
 			change_scene(next_level_path)
+		# Диалог с НПС
+		elif Input.is_action_just_pressed("interact") and dialogue_info["player_can"]:
+			# Если игрок уже в диалоге, то он из него выходит, иначе начинает
+			if DialogueController.dialogue:
+				DialogueController.dialogue_finish()
+			else:
+				DialogueController.dialogue_start(dialogue_info["npc"])
 
 func player_vulnerable() -> void:
 	is_player_vulnerable = true
