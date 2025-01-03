@@ -528,6 +528,8 @@ right_limit = NodePath("../../Limits/RightCameraLimit")
 
 [node name="Traps" type="Node2D" parent="."]
 
+[node name="Effects" type="Node2D" parent="."]
+
 [node name="UI" parent="." instance=ExtResource("5_pvnpn")]
 visible = false
 
@@ -559,3 +561,6 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/RightBorder"]
 position = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_ge16j")
+
+[connection signal="create_air_dash_effect" from="Player" to="." method="_on_player_create_air_dash_effect"]
+[connection signal="create_dash_effect" from="Player" to="." method="_on_player_create_dash_effect"]

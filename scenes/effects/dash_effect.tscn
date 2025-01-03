@@ -1,0 +1,57 @@
+[gd_scene load_steps=13 format=3 uid="uid://bnhy83l4pg3dg"]
+
+[ext_resource type="PackedScene" uid="uid://builyildimukk" path="res://scenes/effects/effect_template.tscn" id="1_oh3th"]
+[ext_resource type="Texture2D" uid="uid://dmwoennw367c8" path="res://sprites/effects/smoke/1.png" id="2_id00t"]
+[ext_resource type="Texture2D" uid="uid://b154yo5y45c1g" path="res://sprites/effects/smoke/2.png" id="3_g1x7l"]
+[ext_resource type="Texture2D" uid="uid://52n4dugynj11" path="res://sprites/effects/smoke/3.png" id="4_4g0g3"]
+[ext_resource type="Texture2D" uid="uid://sns0mq2n22bq" path="res://sprites/effects/smoke/4.png" id="5_pbnug"]
+[ext_resource type="Texture2D" uid="uid://cxt6clbu1k5w7" path="res://sprites/effects/smoke/5.png" id="6_jhond"]
+[ext_resource type="Texture2D" uid="uid://cu8l2l3g3fxfc" path="res://sprites/effects/smoke/6.png" id="7_6bia8"]
+[ext_resource type="Texture2D" uid="uid://dw5l2k25c0amk" path="res://sprites/effects/smoke/7.png" id="8_hv7re"]
+[ext_resource type="Texture2D" uid="uid://dkju2dy0a2xji" path="res://sprites/effects/smoke/8.png" id="9_cdx8a"]
+[ext_resource type="Texture2D" uid="uid://dcadeclodn7e2" path="res://sprites/effects/smoke/9.png" id="10_rwuk6"]
+[ext_resource type="Texture2D" uid="uid://w34pain628ne" path="res://sprites/effects/smoke/10.png" id="11_il0v4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e5tgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_id00t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g1x7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4g0g3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pbnug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jhond")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6bia8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_hv7re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cdx8a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rwuk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_il0v4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="DashEffect" instance=ExtResource("1_oh3th")]
+sprite_frames = SubResource("SpriteFrames_e5tgj")
+autoplay = "default"
+frame = 9
+frame_progress = 1.0

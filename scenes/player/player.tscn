@@ -326,7 +326,7 @@ shape = SubResource("RectangleShape2D_63te6")
 material = SubResource("ShaderMaterial_xi2pj")
 position = Vector2(-10, -8)
 sprite_frames = SubResource("SpriteFrames_eemjy")
-animation = &"climb"
+animation = &"run"
 flip_h = true
 
 [node name="Timers" type="Node2D" parent="."]

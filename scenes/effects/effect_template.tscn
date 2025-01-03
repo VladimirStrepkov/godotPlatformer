@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://builyildimukk"]
+
+[ext_resource type="Script" path="res://scenes/effects/effect_template.gd" id="1_0igpf"]
+
+[node name="EffectTemplate" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.615686)
+z_index = 1
+script = ExtResource("1_0igpf")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

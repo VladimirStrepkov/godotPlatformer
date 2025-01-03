@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=3 uid="uid://b0rqdimk33fr"]
+
+[ext_resource type="PackedScene" uid="uid://builyildimukk" path="res://scenes/effects/effect_template.tscn" id="1_7wodp"]
+[ext_resource type="Texture2D" uid="uid://b3wkdrf5afa6b" path="res://sprites/effects/smoke 2/Free Smoke Fx  Pixel 05.png" id="2_2qvp8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x41i1"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(0, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52l04"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(64, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xas8b"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(128, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgmom"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(192, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kclc"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(256, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tjqi"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(320, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d2nb"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(384, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqn1o"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(448, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70xyr"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(512, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwkh7"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(576, 640, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvjyn"]
+atlas = ExtResource("2_2qvp8")
+region = Rect2(640, 640, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x2rm0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x41i1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52l04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xas8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgmom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kclc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tjqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4d2nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqn1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70xyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwkh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvjyn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="AirDashEffect" instance=ExtResource("1_7wodp")]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_x2rm0")
+autoplay = "default"
+frame = 10
+frame_progress = 1.0

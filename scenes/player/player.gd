@@ -14,6 +14,9 @@ var dash_speed: float = 0:
 	set(value):
 		# не может быть отрицательным
 		dash_speed = max(0, value)
+# Создать эффект рывка (дым) в позиции pos, отражённый по горизонтали если flip_hor
+signal create_dash_effect(pos:Vector2, flip_hor:bool)
+signal create_air_dash_effect(pos:Vector2, flip_hor:bool)
 
 # Взбирается ли игрок по лестнице
 var player_climbs: bool = false
@@ -108,15 +111,20 @@ func _physics_process(delta):
 	else:
 		speed = run_speed
 	
+	# В зависимости от нажатых кнопок меняем направление движения
+	var direction = Input.get_axis("left", "right")
+	
 	# Если нажата клавиша shift, то персонаж совершает рывок
-	if Input.is_action_just_pressed("shift") and Globals.player_can_move and $Timers/DashTimer.is_stopped():
+	if Input.is_action_just_pressed("shift") and Globals.player_can_move and $Timers/DashTimer.is_stopped() and direction:
 		dash_speed = 300
 		$Timers/DashTimer.start()
+		if is_on_floor():
+			create_dash_effect.emit(global_position, bool(direction==1))
+		else:
+			create_air_dash_effect.emit(global_position, bool(direction == 1))
 	speed += dash_speed
 	dash_speed -= 20
 
-	# В зависимости от нажатых кнопок меняем направление движения
-	var direction = Input.get_axis("left", "right")
 	if direction and Globals.player_can_move:
 		velocity.x = direction * speed
 	else:
@@ -148,6 +156,8 @@ func update_animation():
 	elif dash_speed > 0:
 		if a != "dash":
 			anim.play("dash")
+	elif dash_speed == 0 and a == "dash":
+		anim.play("idle")
 	elif player_climbs:
 		# Если игрок неподвижно стоит на лестнице, то ставим анимацию на паузу
 		if a != "climb" or vy == 0:
