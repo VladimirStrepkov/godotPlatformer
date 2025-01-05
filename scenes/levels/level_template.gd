@@ -22,12 +22,14 @@ func _ready() -> void:
 # effect - имя эффекта (ключ в словаре эффектов effects)
 # pos - где создаём эффект
 # flip_hor - нужно ли отражать эффект по горизонтали
-func create_new_effect(effect: String, pos: Vector2, flip_hor: bool) -> void:
+func create_new_effect(effect: String, pos: Vector2, flip_hor: bool, effect_rotation: float) -> void:
 	# Создаём экземпляр эффекта
 	var new_effect = effects[effect].instantiate()
 	# Задаём ему позицию
 	new_effect.global_position = pos
 	# Отражаем его по горизонтали если требуется
 	new_effect.flip_h = flip_hor
+	# Поворачиваем эффект
+	new_effect.rotate(effect_rotation)
 	# Добавляем его в узел эффектов
 	$Effects.add_child(new_effect)

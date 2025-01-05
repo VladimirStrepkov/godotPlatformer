@@ -35,6 +35,12 @@ var does_player_died: bool = false:
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
+# Значение толкания игрока (игрока подбрасывает вверх)
+var player_pushing: float = 0
+# Толкнуть игрока (по y)
+func push_player(push_value: float) -> void:
+	player_pushing += push_value
+
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
@@ -140,12 +146,18 @@ func _physics_process(delta):
 		
 		Globals.create_effect(name_effect, global_position + position_shift, flip_hor)
 
+	# Двигаем игрока по x
 	speed += dash_speed
 	dash_speed -= 20
 	if direction and Globals.player_can_move:
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	# Толкаем игрока по y
+	velocity.y += player_pushing
+	# Обнуляем значение толчка
+	player_pushing = 0
 	
 	update_animation()
 	move_and_slide()

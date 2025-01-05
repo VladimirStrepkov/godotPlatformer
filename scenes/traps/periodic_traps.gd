@@ -1,4 +1,5 @@
 extends Area2D
+class_name PeriodicTraps
 
 # Это сцена-шаблон периодической ловушки, она находится определённое время в неактивном
 # режиме, в котором не наносит урон, а потом активируется и находится определённое время в
@@ -25,6 +26,9 @@ var is_player_near: bool = false
 # Урон к-й наносится игроку когда он стоит на активной ловушке
 @export var damage: float
 
+# Игрок
+var player
+
 # Функция переключения ловушки
 func switch() -> void:
 	is_active = not is_active
@@ -49,8 +53,9 @@ func _on_activity_timer_timeout() -> void:
 	$AnimationPlayer.play("deactivation")
 	$Timers/IdleTimer.start()
 
-func _on_body_entered(_body: Node2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	is_player_near = true
+	player = body
 
 func _on_body_exited(_body: Node2D) -> void:
 	is_player_near = false
@@ -59,3 +64,8 @@ func _process(_delta: float) -> void:
 	# Если ловушка активна и игрок на ней стоит, то игроку наносится урон
 	if is_active and is_player_near:
 		Globals.player_health -= damage
+		interaction()
+
+# Какое-то дополнительное взаимодействие ловушки с игроком
+func interaction() -> void:
+	pass

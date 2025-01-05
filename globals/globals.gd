@@ -76,7 +76,8 @@ var player_health: float:
 			return
 		if value > player_health:
 			player_health = min(value, max_player_health)
-		else:
+		# Если value = 0, то ничего не происходит
+		elif value < player_health:
 			if is_player_vulnerable:
 				player_health = max(value, 0)
 				is_player_vulnerable = false
@@ -185,8 +186,8 @@ func zoom_out_camera() -> void:
 	
 signal create_new_effect(effect: String, pos: Vector2, flip_hor: bool)
 # Создать новый эффект на текущем уровне
-func create_effect(effect: String, pos: Vector2, flip_hor: bool) -> void:
-	create_new_effect.emit(effect, pos, flip_hor)
+func create_effect(effect: String, pos: Vector2, flip_hor: bool = false, effect_rotation: float = 0) -> void:
+	create_new_effect.emit(effect, pos, flip_hor, effect_rotation)
 
 # Данные узла игрока для сохранения
 var player_data: Dictionary
