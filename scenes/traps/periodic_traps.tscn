@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://qt3ggyhn45tx"]
+
+[ext_resource type="Script" path="res://scenes/traps/periodic_traps.gd" id="1_jv5c8"]
+
+[node name="PeriodicTraps" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_jv5c8")
+
+[node name="AnimationSpriteSheet" type="Sprite2D" parent="."]
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="IdleTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="ActivityTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timers/IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="Timers/ActivityTimer" to="." method="_on_activity_timer_timeout"]

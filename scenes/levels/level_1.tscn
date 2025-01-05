@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://cdw26jr020dm5"]
+[gd_scene load_steps=11 format=4 uid="uid://cdw26jr020dm5"]
 
 [ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_wyuky"]
 [ext_resource type="PackedScene" uid="uid://d2hroljqhw21j" path="res://scenes/interactive_objects/transition.tscn" id="3_dc7da"]
-[ext_resource type="PackedScene" uid="uid://2e0n444p7ome" path="res://scenes/traps/spike.tscn" id="4_wehq1"]
+[ext_resource type="PackedScene" uid="uid://6xd5q2ibpgmj" path="res://scenes/traps/periodic_spear.tscn" id="4_bdcys"]
+[ext_resource type="PackedScene" uid="uid://bxyjbldjgo5y1" path="res://scenes/traps/periodic_spike.tscn" id="4_vjmja"]
 [ext_resource type="PackedScene" uid="uid://bdh6cxe0lfsg8" path="res://scenes/interactive_objects/jack.tscn" id="5_xvhib"]
 [ext_resource type="PackedScene" uid="uid://d05f3uw3nebcw" path="res://scenes/objects/ladder.tscn" id="6_kxn66"]
 [ext_resource type="PackedScene" uid="uid://dtahajpuaycm0" path="res://scenes/interactive_objects/save_point.tscn" id="8_4c8yw"]
@@ -83,17 +84,21 @@ shape = SubResource("RectangleShape2D_dv54s")
 [node name="Player" parent="." index="3"]
 position = Vector2(298, 43)
 
-[node name="Spike" parent="Traps" index="0" instance=ExtResource("4_wehq1")]
-position = Vector2(-111, 90)
+[node name="PeriodicSpike" parent="Traps" index="0" instance=ExtResource("4_vjmja")]
+position = Vector2(175, 90)
 idle_time = 3.0
 activity_time = 3.0
+damage = 10.0
+
+[node name="PeriodicSpear" parent="Traps" index="1" instance=ExtResource("4_bdcys")]
+position = Vector2(96, 64)
 
 [node name="SavePoint" parent="." index="7" instance=ExtResource("8_4c8yw")]
 position = Vector2(-53, 96)
 collision_layer = 1
 
 [node name="Transition" parent="." index="8" instance=ExtResource("3_dc7da")]
-position = Vector2(116, 89)
+position = Vector2(45, 89)
 collision_layer = 1
 level_path = "res://scenes/levels/level_2.tscn"
 

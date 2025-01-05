@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxyjbldjgo5y1"]
+
+[ext_resource type="PackedScene" uid="uid://qt3ggyhn45tx" path="res://scenes/traps/periodic_traps.tscn" id="1_ytq4n"]
+[ext_resource type="Texture2D" uid="uid://brn1bgtj3tbru" path="res://sprites/traps/Spike_B.png" id="2_y6dva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d87b8"]
+size = Vector2(32, 15)
+
+[sub_resource type="Animation" id="Animation_r7enr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_ihpu5"]
+resource_name = "activation"
+length = 1.54
+step = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28, 0.42, 0.56, 0.7, 0.84, 0.98, 1.12, 1.26, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.28),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"switch"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_k7848"]
+resource_name = "deactivation"
+length = 0.7
+step = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationSpriteSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28, 0.42, 0.56),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 3, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.42),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"switch"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f4i5e"]
+_data = {
+"RESET": SubResource("Animation_r7enr"),
+"activation": SubResource("Animation_ihpu5"),
+"deactivation": SubResource("Animation_k7848")
+}
+
+[node name="PeriodicSpike" instance=ExtResource("1_ytq4n")]
+idle_time = 2.0
+activity_time = 2.0
+damage = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_d87b8")
+
+[node name="AnimationSpriteSheet" parent="." index="1"]
+texture = ExtResource("2_y6dva")
+hframes = 10
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_f4i5e")
+}
