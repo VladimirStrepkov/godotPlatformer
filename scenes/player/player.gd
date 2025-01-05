@@ -41,6 +41,17 @@ var player_pushing: float = 0
 func push_player(push_value: float) -> void:
 	player_pushing += push_value
 
+# Может ли игрок совершить двойной прыжок (бонус двойного прыжка)
+var double_jump: bool = false
+# Последний объект двойного прыжка, с которым сталкивался игрок
+var double_jump_object
+# Включить/выключить двойной прыжок
+func enable_double_jump(double_jump_link) -> void:
+	double_jump = true
+	double_jump_object = double_jump_link
+func disable_double_jump() -> void:
+	double_jump = false
+
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
@@ -89,8 +100,11 @@ func _physics_process(delta):
 		velocity += get_gravity() * delta
 
 	# Прыжок
-	if Input.is_action_just_pressed("accept") and (is_on_floor() or player_climbs) and Globals.player_can_move:
+	if Input.is_action_just_pressed("accept") and (is_on_floor() or player_climbs or double_jump) and Globals.player_can_move:
 		velocity.y = jump_velocity
+		# Сообщаем объекту двойного прыжка, что игрок им воспользовался
+		if double_jump:
+			double_jump_object.activate()
 	
 	# если игрок нажимает "w" и он может ползти по лестнице, то он ползёт по лестнице
 	if Input.is_action_just_pressed("top") and player_can_climb and not player_climbs:

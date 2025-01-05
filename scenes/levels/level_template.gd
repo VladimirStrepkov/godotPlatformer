@@ -3,7 +3,8 @@ extends Node2D
 # Словарь эффектов (упакованные сцены)
 var effects: Dictionary = {
 	"dash_effect" : preload("res://scenes/effects/dash_effect.tscn"),
-	"air_dash_effect" : preload("res://scenes/effects/air_dash_effect.tscn")
+	"air_dash_effect" : preload("res://scenes/effects/air_dash_effect.tscn"),
+	"double_jump_effect" : preload("res://scenes/effects/double_jump_effect.tscn")
 }
 
 # Название уровня

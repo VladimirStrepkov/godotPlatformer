@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://tcidwclvfl8p"]
+
+[ext_resource type="Script" path="res://scenes/objects/double_jump.gd" id="1_3xeqk"]
+[ext_resource type="Texture2D" uid="uid://baem2kci3ia34" path="res://sprites/traps/Arrow_Double_Jump.png" id="1_rq5um"]
+[ext_resource type="Shader" path="res://shaders/white_color.gdshader" id="2_67g88"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n64kr"]
+radius = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_axoc8"]
+resource_local_to_scene = true
+shader = ExtResource("2_67g88")
+shader_parameter/color = Color(1, 0.101961, 0.333333, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brxb0"]
+atlas = ExtResource("1_rq5um")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouv4g"]
+atlas = ExtResource("1_rq5um")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qrs6"]
+atlas = ExtResource("1_rq5um")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpxbt"]
+atlas = ExtResource("1_rq5um")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7k8f7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brxb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouv4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qrs6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpxbt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="DoubleJump" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_3xeqk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n64kr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_axoc8")
+sprite_frames = SubResource("SpriteFrames_7k8f7")
+autoplay = "default"
+frame_progress = 0.358802
+
+[node name="ActivityTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="ActivityTimer" to="." method="_on_activity_timer_timeout"]
