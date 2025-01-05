@@ -6,6 +6,8 @@ var speed: float
 var walk_speed: float = 30.0
 # Скорость бега игрока
 var run_speed: float = 100.0
+# Скорость движения игрока когда он взаимодействует с ящиком
+var box_interaction_speed: float = 20.0
 # Высота прыжка игрока
 var jump_velocity: float = -400.0
 
@@ -52,6 +54,26 @@ func enable_double_jump(double_jump_link) -> void:
 func disable_double_jump() -> void:
 	double_jump = false
 
+# Последний ящик с которым мог взаимодействовать игрок
+var box_object
+# Взаимодействует ли игрок с ящиком
+var box_interaction = false:
+	set(value):
+		box_interaction = value
+		# Если игрок не взаимодействует с ящиком то ящик не двигается
+		if not value:
+			box_object.set_movement_direction(0)
+# Возможно ли на данный момент взаимодействие с ящиком
+var box_interaction_possible = false:
+	set(value):
+		box_interaction_possible = value
+		# Игрок не взаимодействует с ящиком если он не может взаимодействовать с ним
+		if not value:
+			box_interaction = false
+func switch_box_interaction(box_link) -> void:
+	box_interaction_possible = not box_interaction_possible
+	box_object = box_link
+
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
@@ -95,19 +117,36 @@ func switch_player_white_color() -> void:
 		$AnimatedSprite2D.material.set_shader_parameter("progress", 1)
 
 func _physics_process(delta):
+	# Игрок взаимодействует с ящиком если может
+	if Input.is_action_just_pressed("interact") and box_interaction_possible:
+		box_interaction = not box_interaction
+		# Меняем текст подсказки
+		if box_interaction:
+			Globals.show_hint("E - отпустить")
+		else:
+			Globals.show_hint("E - перемещать")
+		# Поворачиваем игрока в зависимости от расположения ящика
+		if box_object.global_position.x > global_position.x:
+			rotate_right()
+		else:
+			rotate_left()
+		# запускаем анимацию
+		anim.play("push")
+		anim.pause()
+	
 	# Добавляем гравитацию
 	if not is_on_floor() and not player_climbs:
 		velocity += get_gravity() * delta
 
 	# Прыжок
-	if Input.is_action_just_pressed("accept") and (is_on_floor() or player_climbs or double_jump) and Globals.player_can_move:
+	if Input.is_action_just_pressed("accept") and (is_on_floor() or player_climbs or double_jump) and Globals.player_can_move and not box_interaction:
 		velocity.y = jump_velocity
 		# Сообщаем объекту двойного прыжка, что игрок им воспользовался
 		if double_jump:
 			double_jump_object.activate()
 	
 	# если игрок нажимает "w" и он может ползти по лестнице, то он ползёт по лестнице
-	if Input.is_action_just_pressed("top") and player_can_climb and not player_climbs:
+	if Input.is_action_just_pressed("top") and player_can_climb and not player_climbs and not box_interaction:
 		player_climbs = true
 	
 	# Если игрок нажимает "space", "a", "d", то он слезает с лестницы
@@ -122,17 +161,22 @@ func _physics_process(delta):
 	if player_climbs and Globals.player_can_move:
 		velocity.y = ladder_direction * 30
 		
-	# В зависимости от нажатия ctrl меняем скорость игрока (ходьба/бег)
-	if Input.is_action_pressed("ctrl"):
+	# Меняем скорость игрока
+	if box_interaction:
+		speed = box_interaction_speed
+	elif Input.is_action_pressed("ctrl"):
 		speed = walk_speed
 	else:
 		speed = run_speed
 	
 	# В зависимости от нажатых кнопок меняем направление движения
 	var direction = Input.get_axis("left", "right")
+	# Если игрок двигает ящик, то направление движения игрока передаётся ящику
+	if box_interaction and Globals.player_can_move:
+		box_object.set_movement_direction(direction)
 	
 	# Если нажата клавиша shift, то персонаж совершает рывок
-	if Input.is_action_just_pressed("shift") and Globals.player_can_move and $Timers/DashTimer.is_stopped() and direction:
+	if Input.is_action_just_pressed("shift") and Globals.player_can_move and $Timers/DashTimer.is_stopped() and direction and not box_interaction:
 		dash_speed = 300
 		$Timers/DashTimer.start()
 		# СОЗДАЁМ ЭФФЕКТ ПОСЛЕ РЫВКА ---------------------------------------------------
@@ -179,12 +223,11 @@ func _physics_process(delta):
 func update_animation():
 	# Меняем направление спрайтов в зависимости от скорости по x
 	# положение x тоже меняем т.к. кадры не симметричные по оси x
-	if velocity.x > 0:
-		anim.flip_h = false
-		anim.position.x = 7
-	elif velocity.x < 0:
-		anim.flip_h = true
-		anim.position.x = -10 
+	if not box_interaction:
+		if velocity.x > 0:
+			rotate_right()
+		elif velocity.x < 0:
+			rotate_left()
 	
 	# Эти переменные нужны для сокращения кода
 	var a = anim.animation
@@ -225,7 +268,31 @@ func update_animation():
 	elif vx != 0 and vy == 0:
 		if speed == run_speed:
 			anim.play("run")
-		else:
+		elif speed == walk_speed:
 			anim.play("walk")
-	elif (a == "run" or a == "walk") and vx == 0:
-		anim.play("idle")
+		elif speed == box_interaction_speed:
+			# ящик справа от игрока
+			if box_object.global_position.x > global_position.x:
+				if velocity.x > 0:
+					anim.play("push")
+				else:
+					anim.play_backwards("push")
+			# ящик слева от игрока
+			else:
+				if velocity.x < 0:
+					anim.play("push")
+				else:
+					anim.play_backwards("push")
+	elif (a == "run" or a == "walk" or a == "push") and vx == 0:
+		if box_interaction:
+			anim.pause()
+		else:
+			anim.play("idle")
+
+# Повернуть игрока вправо/влево
+func rotate_right() -> void:
+	anim.flip_h = false
+	anim.position.x = 7
+func rotate_left() -> void:
+	anim.flip_h = true
+	anim.position.x = -10 
