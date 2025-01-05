@@ -14,9 +14,6 @@ var dash_speed: float = 0:
 	set(value):
 		# не может быть отрицательным
 		dash_speed = max(0, value)
-# Создать эффект рывка (дым) в позиции pos, отражённый по горизонтали если flip_hor
-signal create_dash_effect(pos:Vector2, flip_hor:bool)
-signal create_air_dash_effect(pos:Vector2, flip_hor:bool)
 
 # Взбирается ли игрок по лестнице
 var player_climbs: bool = false
@@ -118,13 +115,33 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("shift") and Globals.player_can_move and $Timers/DashTimer.is_stopped() and direction:
 		dash_speed = 300
 		$Timers/DashTimer.start()
+		# СОЗДАЁМ ЭФФЕКТ ПОСЛЕ РЫВКА ---------------------------------------------------
+		# Имя эффекта, который будет создаваться при рывке
+		var name_effect: String;
+		# Смещение позиции эффекта относительно игрока
+		var position_shift_x: float
+		var position_shift_y: float
+		# Нужно ли отражать спрайт эффекта по горизонтали
+		var flip_hor = (direction == 1)
+		
 		if is_on_floor():
-			create_dash_effect.emit(global_position, bool(direction==1))
+			name_effect = "dash_effect"
+			position_shift_x = 26
+			position_shift_y = 9
 		else:
-			create_air_dash_effect.emit(global_position, bool(direction == 1))
+			name_effect = "air_dash_effect"
+			position_shift_x = 14
+			position_shift_y = 0
+		
+		if flip_hor:
+			position_shift_x = -position_shift_x
+		
+		var position_shift = Vector2(position_shift_x, position_shift_y)
+		
+		Globals.create_effect(name_effect, global_position + position_shift, flip_hor)
+
 	speed += dash_speed
 	dash_speed -= 20
-
 	if direction and Globals.player_can_move:
 		velocity.x = direction * speed
 	else:

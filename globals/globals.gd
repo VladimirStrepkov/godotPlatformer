@@ -182,6 +182,11 @@ signal camera_zoom_out()
 # Уменьшаем масштаб камеры
 func zoom_out_camera() -> void:
 	camera_zoom_out.emit()
+	
+signal create_new_effect(effect: String, pos: Vector2, flip_hor: bool)
+# Создать новый эффект на текущем уровне
+func create_effect(effect: String, pos: Vector2, flip_hor: bool) -> void:
+	create_new_effect.emit(effect, pos, flip_hor)
 
 # Данные узла игрока для сохранения
 var player_data: Dictionary
