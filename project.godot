@@ -85,6 +85,7 @@ down={
 2d_physics/layer_4="traps"
 2d_physics/layer_5="projectiles"
 2d_physics/layer_6="items & zones"
+2d_physics/layer_7="boxes"
 
 [rendering]
 

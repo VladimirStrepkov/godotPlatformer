@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://mnb137lwqw6c"]
+
+[ext_resource type="PackedScene" uid="uid://6n5c8yn4kbdm" path="res://scenes/interactive_objects/switch_object.tscn" id="1_mlwqx"]
+[ext_resource type="Script" path="res://scenes/interactive_objects/pressure_plate.gd" id="2_d8g61"]
+[ext_resource type="Texture2D" uid="uid://dklmtn0574avm" path="res://sprites/world/3 Objects/Pressure_plate_off.png" id="2_df60c"]
+[ext_resource type="Texture2D" uid="uid://ct4oa4s4wavw8" path="res://sprites/world/3 Objects/Pressure_plate_on.png" id="3_cn4p0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6utrf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_df60c")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cn4p0")
+}],
+"loop": false,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snqe4"]
+size = Vector2(40, 4)
+
+[node name="PressurePlate" instance=ExtResource("1_mlwqx")]
+z_index = 2
+script = ExtResource("2_d8g61")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_6utrf")
+animation = &"off"
+autoplay = "off"
+
+[node name="PlateArea" type="Area2D" parent="." index="3"]
+collision_layer = 32
+collision_mask = 65
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlateArea" index="0"]
+shape = SubResource("RectangleShape2D_snqe4")
+
+[connection signal="body_entered" from="PlateArea" to="." method="_on_plate_area_body_entered"]
+[connection signal="body_exited" from="PlateArea" to="." method="_on_plate_area_body_exited"]
