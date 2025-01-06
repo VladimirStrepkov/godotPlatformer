@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://6n5c8yn4kbdm"]
+
+[ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_hwdjf"]
+[ext_resource type="Script" path="res://scenes/interactive_objects/switch_object.gd" id="2_v41e3"]
+
+[node name="SwitchObject" node_paths=PackedStringArray("objects") instance=ExtResource("1_hwdjf")]
+script = ExtResource("2_v41e3")
+objects = []
+on_functions = []
+off_functions = []

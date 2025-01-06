@@ -97,6 +97,7 @@ size = Vector2(21, 16)
 [node name="Jumper" instance=ExtResource("1_areai")]
 script = ExtResource("2_errku")
 pushing_force = 80.0
+auto_start = true
 idle_time = 2.0
 activity_time = 2.0
 

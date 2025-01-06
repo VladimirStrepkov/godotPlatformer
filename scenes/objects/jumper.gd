@@ -3,6 +3,9 @@ extends PeriodicTraps
 # Сила толчка
 @export var pushing_force: float
 
+# Включается ли Джампер автоматически
+@export var auto_start: bool = true
+
 # Джампер толкает игрока
 func interaction() -> void:
 	player.push_player(-pushing_force)
@@ -14,4 +17,16 @@ func _ready() -> void:
 	is_active = false
 	# Функция "start" откладывается до конца физического кадра
 	# чтобы переменные успели загрузиться
-	call_deferred("start")
+	if auto_start:
+		call_deferred("start")
+
+# Включаем Джампер извне
+func on_function() -> void:
+	is_active = false
+	$Timers/IdleTimer.start()
+
+# Выключаем Джампер извне
+func off_function() -> void:
+	$AnimationPlayer.stop()
+	$Timers/IdleTimer.stop()
+	$Timers/ActivityTimer.stop()

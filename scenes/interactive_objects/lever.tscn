@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://2dfy6euvvyio"]
+
+[ext_resource type="PackedScene" uid="uid://6n5c8yn4kbdm" path="res://scenes/interactive_objects/switch_object.tscn" id="1_ul3pt"]
+[ext_resource type="Script" path="res://scenes/interactive_objects/lever.gd" id="2_5vgat"]
+[ext_resource type="Texture2D" uid="uid://hle1srh8lsig" path="res://sprites/world/FortressTileset.png" id="3_40xdc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojm55"]
+atlas = ExtResource("3_40xdc")
+region = Rect2(64, 80, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plq4v"]
+atlas = ExtResource("3_40xdc")
+region = Rect2(80, 80, 16, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oifq1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojm55")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plq4v")
+}],
+"loop": false,
+"name": &"on",
+"speed": 5.0
+}]
+
+[node name="Lever" instance=ExtResource("1_ul3pt")]
+script = ExtResource("2_5vgat")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_oifq1")
+animation = &"off"
+autoplay = "off"

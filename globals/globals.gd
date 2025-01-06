@@ -23,6 +23,10 @@ var level_names: Dictionary = {
 # уязвим ли игрок
 var is_player_vulnerable: bool = true
 
+# Может ли игрок переключить рычаг
+var player_can_switch_lever = false
+signal switch_lever
+
 # Может ли игрок сохранить игру (т.е. рядом ли он с сейв-поинтом)
 var player_can_save: bool = false
 
@@ -135,6 +139,9 @@ func _process(_delta: float) -> void:
 				DialogueController.dialogue_finish()
 			else:
 				DialogueController.dialogue_start(dialogue_info["npc"])
+		# Переключение рычага
+		elif Input.is_action_just_pressed("interact") and player_can_switch_lever:
+			switch_lever.emit()
 
 func player_vulnerable() -> void:
 	is_player_vulnerable = true
