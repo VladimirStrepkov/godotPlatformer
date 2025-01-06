@@ -11,6 +11,12 @@ var box_interaction_speed: float = 20.0
 # Высота прыжка игрока
 var jump_velocity: float = -400.0
 
+# максимальная y-координата игрока с момента, как он оторвался от земли
+# Нужно чтобы игрок получал урон от падения
+var max_y_height: float = 0
+# Если высота падения будет выше этого значения, то игрок получит урон
+var save_height: float = 200
+
 # Скорость которую добавляет рывок (после рывка постепенно уменьшается до 0)
 var dash_speed: float = 0:
 	set(value):
@@ -117,6 +123,20 @@ func switch_player_white_color() -> void:
 		$AnimatedSprite2D.material.set_shader_parameter("progress", 1)
 
 func _physics_process(delta):
+	# Если игрок на полу, его высота падения равна текущей y-координате
+	if is_on_floor():
+		# Если разница между высотой наивысшей точки после отрыва от земли и высотой точки приземления слишком большая
+		# то игрок получает урон
+		var fall_height = -(max_y_height - global_position.y)
+		if fall_height > save_height:
+			Globals.player_health -= floor((fall_height - save_height)/5)
+		if fall_height > 200:
+			Globals.create_effect("air_dash_effect", Vector2(global_position.x, global_position.y + 12), false, deg_to_rad(90))
+		max_y_height = global_position.y
+	# В ином случае будет вычисляться максимальная y-координата игрока с момента его отрыва от земли
+	else:
+		max_y_height = min(max_y_height, global_position.y)
+
 	# Игрок взаимодействует с ящиком если может
 	if Input.is_action_just_pressed("interact") and box_interaction_possible:
 		box_interaction = not box_interaction
@@ -140,6 +160,7 @@ func _physics_process(delta):
 
 	# Прыжок
 	if Input.is_action_just_pressed("accept") and (is_on_floor() or player_climbs or double_jump) and Globals.player_can_move and not box_interaction:
+		max_y_height = global_position.y # Обновляем максимальную высоту после отрыва от земли
 		velocity.y = jump_velocity
 		# Сообщаем объекту двойного прыжка, что игрок им воспользовался
 		if double_jump:
@@ -150,8 +171,9 @@ func _physics_process(delta):
 		player_climbs = true
 	
 	# Если игрок нажимает "space", "a", "d", то он слезает с лестницы
-	if Input.is_action_just_pressed("accept") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left"):
+	if (Input.is_action_just_pressed("accept") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left")) and player_climbs:
 		player_climbs = false
+		max_y_height = global_position.y # Обновляем максимальную высоту после отрыва от земли
 	
 	# Добавляем движение по лестнице
 	
