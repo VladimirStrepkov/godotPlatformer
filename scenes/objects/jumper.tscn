@@ -66,6 +66,20 @@ tracks/1/keys = {
 "method": &"switch"
 }]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.42),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"not_pushed"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_hh410"]
 resource_name = "deactivation"
@@ -96,7 +110,7 @@ size = Vector2(21, 16)
 
 [node name="Jumper" instance=ExtResource("1_areai")]
 script = ExtResource("2_errku")
-pushing_force = 80.0
+pushing_force = 550.0
 auto_start = true
 idle_time = 2.0
 activity_time = 2.0

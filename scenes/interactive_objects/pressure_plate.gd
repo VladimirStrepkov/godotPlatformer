@@ -4,10 +4,9 @@ extends SwitchObject
 var num_obj_on_plate: int = 0
 
 func _ready() -> void:
-	hint_text = "нажимная плита"
+	show_hint_text = false
 
 func _on_plate_area_body_entered(_body: Node2D) -> void:
-	print(_body)
 	if num_obj_on_plate == 0:
 		activate()
 		$AnimatedSprite2D.play("on")

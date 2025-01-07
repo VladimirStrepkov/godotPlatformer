@@ -25,7 +25,7 @@ size = Vector2(6, 32)
 
 [node name="Jumper" parent="Objects" index="0" instance=ExtResource("2_1jvo4")]
 position = Vector2(312, 88)
-pushing_force = 200.0
+pushing_force = 1000.0
 damage = 80.0
 
 [node name="Jumper2" parent="Objects" index="1" instance=ExtResource("2_1jvo4")]
