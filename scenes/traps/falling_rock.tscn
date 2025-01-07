@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://cop8cuicpbtpv"]
+
+[ext_resource type="Script" path="res://scenes/traps/falling_rock.gd" id="1_mqn1d"]
+[ext_resource type="Texture2D" uid="uid://s5wutpsl1hwf" path="res://sprites/traps/FallingRock.png" id="1_rct1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i77i4"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qycl"]
+size = Vector2(18, 19)
+
+[sub_resource type="Animation" id="Animation_p2l4a"]
+resource_name = "fall"
+length = 1.68
+step = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28, 0.42, 0.56, 0.7, 0.84, 0.98, 1.12, 1.26, 1.4, 1.54),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.84, 1.54),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"delete_rigin_body"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_86j2p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qqhqe"]
+_data = {
+"RESET": SubResource("Animation_86j2p"),
+"fall": SubResource("Animation_p2l4a")
+}
+
+[node name="FallingRock" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_mqn1d")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 8
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_i77i4")
+
+[node name="RockSurface" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_7qycl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rct1v")
+hframes = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qqhqe")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://diuea6smn1npf"]
+[gd_scene load_steps=8 format=4 uid="uid://diuea6smn1npf"]
 
 [ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_uhj8m"]
 [ext_resource type="PackedScene" uid="uid://d2hroljqhw21j" path="res://scenes/interactive_objects/transition.tscn" id="2_e21m6"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://pe1k7ldpd2na" path="res://scenes/objects/box.tscn" id="4_e0lbr"]
 [ext_resource type="PackedScene" uid="uid://b2c8uyq1rw0su" path="res://scenes/objects/jumper.tscn" id="5_418m1"]
 [ext_resource type="PackedScene" uid="uid://82d7l6bjh15e" path="res://scenes/interactive_objects/table_with_text.tscn" id="6_u7mhy"]
+[ext_resource type="PackedScene" uid="uid://cop8cuicpbtpv" path="res://scenes/traps/falling_rock.tscn" id="7_javi2"]
 
 [node name="Level2" instance=ExtResource("1_uhj8m")]
 
@@ -35,6 +36,15 @@ tile_map_data = PackedByteArray("AAD+/wMAAAACAAIAAAD//wMAAAACAAIAAAAAAAMAAAACAAI
 
 [node name="Player" parent="." index="3"]
 position = Vector2(73, -65)
+
+[node name="FallingRock" parent="Traps" index="0" instance=ExtResource("7_javi2")]
+position = Vector2(212, -10)
+
+[node name="FallingRock2" parent="Traps" index="1" instance=ExtResource("7_javi2")]
+position = Vector2(230, -10)
+
+[node name="FallingRock3" parent="Traps" index="2" instance=ExtResource("7_javi2")]
+position = Vector2(248, -10)
 
 [node name="LeftCameraLimit" parent="Limits" index="0"]
 position = Vector2(-502, -39)
