@@ -63,12 +63,7 @@ func disable_double_jump() -> void:
 # Последний ящик с которым мог взаимодействовать игрок
 var box_object
 # Взаимодействует ли игрок с ящиком
-var box_interaction = false:
-	set(value):
-		box_interaction = value
-		# Если игрок не взаимодействует с ящиком то ящик не двигается
-		if not value:
-			box_object.set_movement_direction(0)
+var box_interaction = false
 # Возможно ли на данный момент взаимодействие с ящиком
 var box_interaction_possible = false:
 	set(value):
@@ -93,6 +88,8 @@ func _ready() -> void:
 # Функция смерти игрока
 func player_died() -> void:
 	does_player_died = true
+	# Убираем у игрока маску коллизий с ящиками (чтобы они упали на него)
+	collision_mask &= ~0b1000000  # Убираем 7-й бит (слой 7)
 
 # Функция передачи данных об узле (значений свойств узла) скрипту globals
 func get_player_data() -> void:
@@ -123,6 +120,10 @@ func switch_player_white_color() -> void:
 		$AnimatedSprite2D.material.set_shader_parameter("progress", 1)
 
 func _physics_process(delta):
+	# Игрок получает урон от того что на него упал ящик
+	if is_on_floor() and ($DeathByBox1.is_colliding() or $DeathByBox2.is_colliding()):
+		Globals.player_health -= 20
+	
 	# Если игрок на полу, его высота падения равна текущей y-координате
 	if is_on_floor():
 		# Если разница между высотой наивысшей точки после отрыва от земли и высотой точки приземления слишком большая
@@ -138,7 +139,7 @@ func _physics_process(delta):
 		max_y_height = min(max_y_height, global_position.y)
 
 	# Игрок взаимодействует с ящиком если может
-	if Input.is_action_just_pressed("interact") and box_interaction_possible:
+	if Input.is_action_just_pressed("interact") and box_interaction_possible and not does_player_died:
 		box_interaction = not box_interaction
 		# Меняем текст подсказки
 		if box_interaction:
@@ -281,7 +282,7 @@ func update_animation():
 		anim.play("jump")
 	elif a == "jump" and not anim.is_playing():
 		anim.play("fall")
-	elif a != "fall" and vy > 0:
+	elif a != "fall" and vy > 0 and not box_interaction_possible:
 		anim.play("fall")
 	elif a == "fall" and vy == 0:
 		anim.play("landing")

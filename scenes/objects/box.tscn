@@ -1,40 +1,55 @@
-[gd_scene load_steps=6 format=3 uid="uid://pe1k7ldpd2na"]
+[gd_scene load_steps=5 format=3 uid="uid://pe1k7ldpd2na"]
 
 [ext_resource type="Script" path="res://scenes/objects/box.gd" id="1_cfbll"]
-[ext_resource type="Texture2D" uid="uid://cnmj50rno78bn" path="res://sprites/world/3 Objects/Boxes/4.png" id="1_s86uh"]
+[ext_resource type="Texture2D" uid="uid://clse4s2h2j1th" path="res://sprites/world/3 Objects/box.png" id="2_m2rpk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkhkf"]
-size = Vector2(33, 25)
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_h8wl0"]
-length = 6.0
+size = Vector2(51, 45)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjl6q"]
-size = Vector2(37, 24)
+size = Vector2(59, 25)
 
-[node name="Box" type="RigidBody2D"]
+[node name="Box" type="CharacterBody2D"]
+position = Vector2(0, -13)
 collision_layer = 64
-collision_mask = 23
+collision_mask = 87
 script = ExtResource("1_cfbll")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-texture = ExtResource("1_s86uh")
+position = Vector2(0, -10)
+texture = ExtResource("2_m2rpk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -0.5)
+position = Vector2(1, -10)
 shape = SubResource("RectangleShape2D_qkhkf")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7)
-shape = SubResource("SeparationRayShape2D_h8wl0")
 
 [node name="InteractionZone" type="Area2D" parent="."]
 collision_layer = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
-position = Vector2(0.5, 1)
+position = Vector2(0.5, -10.5)
 shape = SubResource("RectangleShape2D_mjl6q")
+
+[node name="Right1" type="RayCast2D" parent="."]
+position = Vector2(5, 11)
+target_position = Vector2(23, 0)
+collision_mask = 64
+
+[node name="Right2" type="RayCast2D" parent="."]
+position = Vector2(5, -32)
+target_position = Vector2(23, 0)
+collision_mask = 64
+
+[node name="Left1" type="RayCast2D" parent="."]
+position = Vector2(-12, -32)
+target_position = Vector2(-14, 0)
+collision_mask = 64
+
+[node name="Left2" type="RayCast2D" parent="."]
+position = Vector2(-12, 11)
+target_position = Vector2(-14, 0)
+collision_mask = 64
 
 [connection signal="body_entered" from="InteractionZone" to="." method="_on_interaction_zone_body_entered"]
 [connection signal="body_exited" from="InteractionZone" to="." method="_on_interaction_zone_body_exited"]
