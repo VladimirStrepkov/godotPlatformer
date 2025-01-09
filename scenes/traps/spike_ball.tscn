@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://cl15sqcrp14t6"]
+
+[ext_resource type="Texture2D" uid="uid://djol11a541aq6" path="res://sprites/traps/Suriken.png" id="1_gcp62"]
+[ext_resource type="Script" path="res://scenes/traps/spike_ball.gd" id="1_y5ymd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snghv"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72mps"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur5lg"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmrim"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8b37c"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfuvw"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmpff"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7s23a"]
+atlas = ExtResource("1_gcp62")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ml6ru"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snghv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72mps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur5lg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmrim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8b37c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfuvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmpff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7s23a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 35.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fq1yc"]
+radius = 18.0
+
+[node name="SpikeBall" type="Path2D"]
+script = ExtResource("1_y5ymd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+sprite_frames = SubResource("SpriteFrames_ml6ru")
+autoplay = "default"
+frame_progress = 0.0659111
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fq1yc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+remote_path = NodePath("../../Area2D")
+update_rotation = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

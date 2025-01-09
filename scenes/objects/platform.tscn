@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://uhgelpf1femg"]
+
+[ext_resource type="Texture2D" uid="uid://di7o7u3op7o7k" path="res://sprites/traps/Moving Platfrom_G.png" id="1_0avxf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fbqg"]
+size = Vector2(32, 7)
+
+[node name="Platform" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_8fbqg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0avxf")

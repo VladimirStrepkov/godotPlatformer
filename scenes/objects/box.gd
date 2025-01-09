@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Направление движения ящика (1 - вправо, -1 - влево, 0 - никуда)
-@export var movement_direction_x: float = 0
+var movement_direction_x: float = 0
 
 func set_movement_direction(movement_direction) -> void:
 	movement_direction_x = movement_direction
@@ -19,11 +19,15 @@ func _physics_process(_delta: float) -> void:
 		$Right1.get_collider().set_movement_direction(1)
 	if $Right2.is_colliding() and movement_direction_x != 0:
 		$Right2.get_collider().set_movement_direction(1)
+	if $Right3.is_colliding() and movement_direction_x != 0:
+		$Right3.get_collider().set_movement_direction(1)
 	# Столкновение с ящиком слева
 	if $Left1.is_colliding() and movement_direction_x != 0:
 		$Left1.get_collider().set_movement_direction(-1)
 	if $Left2.is_colliding() and movement_direction_x != 0:
 		$Left2.get_collider().set_movement_direction(-1)
+	if $Left3.is_colliding() and movement_direction_x != 0:
+		$Left3.get_collider().set_movement_direction(-1)
 		
 	# Запоминаем позицию до перемещения
 	var old_pos_x = global_position.x
