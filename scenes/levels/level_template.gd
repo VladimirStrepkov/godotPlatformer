@@ -1,12 +1,20 @@
 extends Node2D
 
 # Словарь эффектов (упакованные сцены)
-var effects: Dictionary = {
+const effects: Dictionary = {
 	"dash_effect" : preload("res://scenes/effects/dash_effect.tscn"),
 	"air_dash_effect" : preload("res://scenes/effects/air_dash_effect.tscn"),
 	"double_jump_effect" : preload("res://scenes/effects/double_jump_effect.tscn"),
 	"teleport_effect" : preload("res://scenes/effects/teleport_effect.tscn")
 }
+
+# Массив фонов
+const backgrounds: Array = [
+	preload("res://scenes/background/bg.tscn"),
+	preload("res://scenes/background/bg_2.tscn")
+]
+# Какой индекс фона у этого уровня (в массиве backgounds)
+@export_range(0, len(backgrounds) - 1) var background_num: int
 
 # Название уровня
 var level_name: String
@@ -19,6 +27,8 @@ func _ready() -> void:
 	level_name = Globals.level_names[level_path]
 	Globals.current_level = level_path
 	Globals.connect("create_new_effect", create_new_effect)
+	# Добавляем фон в уровень
+	add_child(backgrounds[background_num].instantiate())
 
 # Создание нового эффекта на уровне
 # effect - имя эффекта (ключ в словаре эффектов effects)

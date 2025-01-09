@@ -123,7 +123,7 @@ metadata/_edit_group_ = true
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_dv54s")
 
-[node name="Player" parent="." index="3"]
+[node name="Player" parent="." index="2"]
 position = Vector2(-280, 66)
 
 [node name="PeriodicSpike" parent="Traps" index="0" instance=ExtResource("4_vjmja")]
