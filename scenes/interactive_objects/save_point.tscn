@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dtahajpuaycm0"]
+[gd_scene load_steps=15 format=3 uid="uid://dtahajpuaycm0"]
 
 [ext_resource type="Texture2D" uid="uid://cjjtmfvnb42ln" path="res://sprites/world/3 Objects/bonfire.png" id="1_2r1un"]
 [ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_d86ys"]
 [ext_resource type="Script" path="res://scenes/interactive_objects/save_point.gd" id="1_g6gj0"]
 [ext_resource type="Texture2D" uid="uid://mu244illimus" path="res://sprites/effects/fire/orange/loops/burning_loop_2.png" id="2_a71jm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uavhq"]
+size = Vector2(51, 79)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dnm1i"]
 atlas = ExtResource("2_a71jm")
@@ -71,6 +74,10 @@ animations = [{
 
 [node name="SavePoint" instance=ExtResource("1_d86ys")]
 script = ExtResource("1_g6gj0")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0.5, -40.5)
+shape = SubResource("RectangleShape2D_uavhq")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="2"]
 position = Vector2(0, -8)

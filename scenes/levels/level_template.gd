@@ -4,7 +4,8 @@ extends Node2D
 var effects: Dictionary = {
 	"dash_effect" : preload("res://scenes/effects/dash_effect.tscn"),
 	"air_dash_effect" : preload("res://scenes/effects/air_dash_effect.tscn"),
-	"double_jump_effect" : preload("res://scenes/effects/double_jump_effect.tscn")
+	"double_jump_effect" : preload("res://scenes/effects/double_jump_effect.tscn"),
+	"teleport_effect" : preload("res://scenes/effects/teleport_effect.tscn")
 }
 
 # Название уровня

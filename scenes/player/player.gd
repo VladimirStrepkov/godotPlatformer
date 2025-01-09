@@ -11,6 +11,16 @@ var box_interaction_speed: float = 20.0
 # Высота прыжка игрока
 var jump_velocity: float = -400.0
 
+# Может ли игрок телепортироваться
+var player_can_teleport: bool = false
+# координаты последнего телепорта, к к-му игрок мог телепортироваться
+var last_teleport_pos
+func on_player_can_teleport(other_teleport_position:Vector2) -> void:
+	player_can_teleport = true
+	last_teleport_pos = other_teleport_position
+func off_player_can_teleport() -> void:
+	player_can_teleport = false
+
 # максимальная y-координата игрока с момента, как он оторвался от земли
 # Нужно чтобы игрок получал урон от падения
 var max_y_height: float = 0
@@ -120,6 +130,13 @@ func switch_player_white_color() -> void:
 		$AnimatedSprite2D.material.set_shader_parameter("progress", 1)
 
 func _physics_process(delta):
+	# Игрок телепортируется если может это сделать и нажимает на E
+	if Input.is_action_just_pressed("interact") and player_can_teleport:
+		# Телепортируем игрока немного правее
+		global_position = last_teleport_pos + Vector2(20, 0)
+		# Создаём эффект
+		Globals.create_effect("teleport_effect", global_position + Vector2(0, -10))
+	
 	# Игрок получает урон от того что на него упал ящик
 	if is_on_floor() and ($DeathByBox1.is_colliding() or $DeathByBox2.is_colliding()):
 		Globals.player_health -= 20

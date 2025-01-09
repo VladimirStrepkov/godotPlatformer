@@ -46,7 +46,7 @@ position = Vector2(48, -96)
 position = Vector2(-456, -16)
 
 [node name="Lever" parent="Objects" index="6" node_paths=PackedStringArray("objects") instance=ExtResource("5_ctnyi")]
-position = Vector2(-370, 90)
+position = Vector2(-370, 96)
 objects = [NodePath("../Jumper3")]
 on_functions = Array[String](["on_function"])
 off_functions = Array[String](["off_function"])
@@ -140,7 +140,7 @@ position = Vector2(-53, 96)
 collision_layer = 1
 
 [node name="Transition" parent="." index="8" instance=ExtResource("3_dc7da")]
-position = Vector2(45, 89)
+position = Vector2(41, 98)
 collision_layer = 1
 level_path = "res://scenes/levels/level_2.tscn"
 
