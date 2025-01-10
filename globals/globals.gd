@@ -11,13 +11,18 @@ const MAIN_MENU = "res://scenes/UI/main_menu.tscn"
 var current_level: String = MAIN_MENU
 
 # уровни (локации)
-var level_1 = "res://scenes/levels/level_1.tscn"
-var level_2 = "res://scenes/levels/level_2.tscn"
+# Тестировочные локации (для тестирования разных механик)
+var test_level_1 = "res://scenes/levels/level_1.tscn"
+var test_level_2 = "res://scenes/levels/level_2.tscn"
+# Уровни для практического применения механик
+# Некоторые механики должны попасть в "Feather of Destiny"
+var introductory_level = "res://scenes/levels/introductory_level.tscn"
 
 # Названия уровней локаций
 var level_names: Dictionary = {
-	level_1 : "Уровень 1",
-	level_2 : "Уровень 2"
+	test_level_1 : "Тест-ровень 1",
+	test_level_2 : "Тест-уровень 2",
+	introductory_level : "Вступление"
 }
 
 # уязвим ли игрок
@@ -241,9 +246,13 @@ func load_game() -> void:
 
 # Начинаем новую игру, все глобальные игровые переменные возвращаются к начальным значениям
 func new_game() -> void:
-	current_level = level_1              # Начальный уровень
+	current_level = introductory_level   # Начальный уровень
 	max_player_health = 300              # Начальное макс. здоровье
 	player_health = max_player_health    # Начальное здоровье
 	nodes_take_data_from_globals = false # У всех узлов значения по умолчанию
+	
+	# Обновляем файл сохранения
+	save_game()
+	
 	# Загружаем первую сцену
 	change_scene(current_level)

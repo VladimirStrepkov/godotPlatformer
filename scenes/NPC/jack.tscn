@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bdh6cxe0lfsg8"]
 
-[ext_resource type="PackedScene" uid="uid://b4jdumjcjvruk" path="res://scenes/interactive_objects/npc.tscn" id="1_lqggs"]
+[ext_resource type="PackedScene" uid="uid://b4jdumjcjvruk" path="res://scenes/NPC/npc.tscn" id="1_lqggs"]
 [ext_resource type="Texture2D" uid="uid://ckx522anrq1oe" path="res://sprites/NPC/1 Old_man/Old_man_idle.png" id="2_nsjxu"]
 [ext_resource type="Texture2D" uid="uid://deg1y0wliehif" path="res://sprites/NPC/1 Old_man/Old_man_walk.png" id="3_ync8w"]
 

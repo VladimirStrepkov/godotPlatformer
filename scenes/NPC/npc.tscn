@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4jdumjcjvruk"]
 
 [ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_ifpwk"]
-[ext_resource type="Script" path="res://scenes/interactive_objects/npc.gd" id="2_xihu5"]
+[ext_resource type="Script" path="res://scenes/NPC/npc.gd" id="2_xihu5"]
 
 [node name="NPC" instance=ExtResource("1_ifpwk")]
 script = ExtResource("2_xihu5")

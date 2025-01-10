@@ -29,6 +29,11 @@ func _on_body_entered(_body: Node2D) -> void:
 	# n - количество маркеров
 	var n = len(markers_array)
 	var tween
+	
+	# Пока игрок не упадёт на пол, не будем запоминать начальное положение камеры
+	while not camera.get_parent().is_on_floor():
+		await get_tree().create_timer(1).timeout
+		
 	# Запоминаем начальное расположение камеры (игрок)
 	var start_position = camera.global_position
 	for i in range(n):

@@ -91,6 +91,9 @@ func _ready() -> void:
 	Globals.connect("get_player_data", get_player_data)
 	Globals.connect("player_died", player_died)
 	
+	# По умолчанию игрок повёрнут вправо
+	rotate_right()
+	
 	# Берём значения свойств этого узла из globals
 	if Globals.nodes_take_data_from_globals:
 		set_player_data()

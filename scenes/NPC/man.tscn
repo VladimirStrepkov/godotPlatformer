@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://clo6nmc2584r6"]
+
+[ext_resource type="PackedScene" uid="uid://b4jdumjcjvruk" path="res://scenes/NPC/npc.tscn" id="1_i0x6k"]
+[ext_resource type="Texture2D" uid="uid://b15gw1i2iaph8" path="res://sprites/NPC/3 Man/Man_idle.png" id="2_yldiu"]
+[ext_resource type="Texture2D" uid="uid://1rkoam5sue60" path="res://sprites/NPC/3 Man/Man_walk.png" id="3_esxe3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ss466"]
+size = Vector2(77, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2k66"]
+atlas = ExtResource("2_yldiu")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oavm5"]
+atlas = ExtResource("2_yldiu")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi32k"]
+atlas = ExtResource("2_yldiu")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qj353"]
+atlas = ExtResource("2_yldiu")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3vpj"]
+atlas = ExtResource("3_esxe3")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5axu"]
+atlas = ExtResource("3_esxe3")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awfmm"]
+atlas = ExtResource("3_esxe3")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njai0"]
+atlas = ExtResource("3_esxe3")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c01p0"]
+atlas = ExtResource("3_esxe3")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp7gk"]
+atlas = ExtResource("3_esxe3")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5gigi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2k66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oavm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi32k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qj353")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3vpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5axu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awfmm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njai0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c01p0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yp7gk")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Man" node_paths=PackedStringArray("anim") instance=ExtResource("1_i0x6k")]
+anim = NodePath("AnimatedSprite2D")
+anim_left_x = -12
+anim_right_x = 12
+npc_name = "Эдвард"
+dialogue_number = 1
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-1.5, -23)
+shape = SubResource("RectangleShape2D_ss466")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
+position = Vector2(9, -24)
+sprite_frames = SubResource("SpriteFrames_5gigi")
+animation = &"idle"
