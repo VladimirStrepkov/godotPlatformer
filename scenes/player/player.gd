@@ -97,6 +97,10 @@ func _ready() -> void:
 	# Берём значения свойств этого узла из globals
 	if Globals.nodes_take_data_from_globals:
 		set_player_data()
+	# Если позиция на следующем уровне не по умолчанию
+	elif Globals.player_next_level_position != null:
+		global_position = Globals.player_next_level_position
+		Globals.player_next_level_position = null
 
 # Функция смерти игрока
 func player_died() -> void:

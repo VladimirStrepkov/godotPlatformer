@@ -17,13 +17,19 @@ var test_level_2 = "res://scenes/levels/level_2.tscn"
 # Уровни для практического применения механик
 # Некоторые механики должны попасть в "Feather of Destiny"
 var introductory_level = "res://scenes/levels/introductory_level.tscn"
+var cave_level = "res://scenes/levels/cave_level.tscn"
 
 # Названия уровней локаций
 var level_names: Dictionary = {
 	test_level_1 : "Тест-ровень 1",
 	test_level_2 : "Тест-уровень 2",
-	introductory_level : "Вступление"
+	introductory_level : "Начало",
+	cave_level : "Пещера"
 }
+
+# Позиция игрока на следующем уровне
+# (Если null, то будет позиция, заданная в сцене уровня)
+var player_next_level_position = null
 
 # уязвим ли игрок
 var is_player_vulnerable: bool = true
@@ -144,6 +150,9 @@ func _process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("interact") and player_can_go_next_level:
 			# При загрузке уровня через интеракцию узлы имеют стандартные значения свойств
 			nodes_take_data_from_globals = false
+			# Сохраняемся перед тем как перейти на следующий уровень
+			save_game()
+			# Меняем сцену уровня
 			change_scene(next_level_path)
 		# Диалог с НПС
 		elif Input.is_action_just_pressed("interact") and dialogue_info["player_can"]:

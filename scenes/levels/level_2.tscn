@@ -39,6 +39,7 @@ tile_map_data = PackedByteArray("AAD+/wMAAAACAAIAAAD//wMAAAACAAIAAAAAAAMAAAACAAI
 [node name="Transition" parent="Objects" index="0" instance=ExtResource("2_e21m6")]
 position = Vector2(8, 74)
 level_path = "res://scenes/levels/level_1.tscn"
+next_level_position = Vector2(0, 0)
 
 [node name="PressurePlate" parent="Objects" index="1" node_paths=PackedStringArray("objects") instance=ExtResource("3_6p0e0")]
 position = Vector2(-111, 30)
