@@ -114,6 +114,9 @@ func get_player_data() -> void:
 func set_player_data() -> void:
 	# Проходимся по ключам словаря
 	for property in Globals.player_data.keys():
+		if property == "global_position" and Globals.player_data["global_position"] == Vector2.ZERO:
+			Globals.player_data["global_position"] = global_position
+			continue
 		set(property, Globals.player_data[property])
 
 # Функция сохранения узла (какие данные об узле нужно сохранять)

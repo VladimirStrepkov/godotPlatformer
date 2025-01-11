@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://ct5eedaysei24"]
+
+[ext_resource type="Texture2D" uid="uid://cltjbpnpt6qp5" path="res://sprites/world/Super Pixel Objects Sample/outline_dark/potion_small/potion_C_red_full.png" id="1_lr0eq"]
+[ext_resource type="Script" path="res://scenes/objects/health_up_bonus.gd" id="1_nq0nd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imwol"]
+size = Vector2(12, 21)
+
+[sub_resource type="Animation" id="Animation_wdjf1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_yjory"]
+resource_name = "default"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f5dsk"]
+_data = {
+"RESET": SubResource("Animation_wdjf1"),
+"default": SubResource("Animation_yjory")
+}
+
+[node name="HealthUpBonus" type="Area2D"]
+script = ExtResource("1_nq0nd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 8)
+texture = ExtResource("1_lr0eq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_imwol")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f5dsk")
+}
+autoplay = "default"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

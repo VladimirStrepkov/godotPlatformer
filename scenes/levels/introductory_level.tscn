@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://brbiei6ffqnxa"]
+[gd_scene load_steps=52 format=4 uid="uid://brbiei6ffqnxa"]
 
 [ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_wq5sv"]
 [ext_resource type="PackedScene" uid="uid://qim2wi60cpnk" path="res://scenes/zones/camera_movement_zone.tscn" id="2_7d5jr"]
@@ -49,6 +49,7 @@
 [ext_resource type="PackedScene" uid="uid://tcidwclvfl8p" path="res://scenes/objects/double_jump.tscn" id="37_rsnhr"]
 [ext_resource type="PackedScene" uid="uid://dbkqlkcymrf1p" path="res://scenes/interactive_objects/teleport.tscn" id="46_iy7wc"]
 [ext_resource type="PackedScene" uid="uid://clo6nmc2584r6" path="res://scenes/NPC/man.tscn" id="48_1ap2d"]
+[ext_resource type="PackedScene" uid="uid://ct5eedaysei24" path="res://scenes/objects/health_up_bonus.tscn" id="48_1gnvg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7claq"]
 size = Vector2(1452.5, 39)
@@ -69,6 +70,7 @@ markers_array = [NodePath("../Marker2D")]
 camera = NodePath("../../../Player/Camera2D")
 movement_times = Array[float]([1.0, 1.0])
 viewing_times = Array[float]([1.0, 3.0, 0.5])
+save_key = "camera_movement1"
 
 [node name="Marker2D" type="Marker2D" parent="AreasAndZones/CameraMovement1" index="1"]
 position = Vector2(2317, -59)
@@ -963,6 +965,14 @@ other_teleport = NodePath("../Teleport2")
 position = Vector2(6471, 66)
 other_teleport = NodePath("../Teleport")
 
+[node name="HealthUpBonus" parent="Objects" index="16" instance=ExtResource("48_1gnvg")]
+position = Vector2(2527, 3)
+save_key = "health_up1"
+
+[node name="HealthUpBonus2" parent="Objects" index="17" instance=ExtResource("48_1gnvg")]
+position = Vector2(2656, 6)
+save_key = "health_up2"
+
 [node name="OldMan" type="Node2D" parent="NPC" index="0"]
 
 [node name="OldMan" parent="NPC/OldMan" index="0" node_paths=PackedStringArray("left_limit_of_movement", "right_limit_of_movement") instance=ExtResource("29_awe2e")]
@@ -994,7 +1004,7 @@ position = Vector2(5858, 56)
 position = Vector2(5689, 53)
 
 [node name="Player" parent="." index="6"]
-position = Vector2(6539, 38)
+position = Vector2(2110, -20)
 
 [node name="RightCameraLimit" parent="Limits" index="1"]
 position = Vector2(7375, -53)

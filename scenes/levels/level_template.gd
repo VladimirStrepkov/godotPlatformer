@@ -5,7 +5,8 @@ const effects: Dictionary = {
 	"dash_effect" : preload("res://scenes/effects/dash_effect.tscn"),
 	"air_dash_effect" : preload("res://scenes/effects/air_dash_effect.tscn"),
 	"double_jump_effect" : preload("res://scenes/effects/double_jump_effect.tscn"),
-	"teleport_effect" : preload("res://scenes/effects/teleport_effect.tscn")
+	"teleport_effect" : preload("res://scenes/effects/teleport_effect.tscn"),
+	"health_up_effect" : preload("res://scenes/effects/health_up_effect.tscn")
 }
 
 # Массив фонов

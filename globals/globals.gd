@@ -83,8 +83,16 @@ var player_health: float:
 		# Здоровье игрока нельзя изменять если персонаж игрока умер
 		if does_player_died:
 			return
-		if value > player_health:
+		if value >= player_health:
 			player_health = min(value, max_player_health)
+			# Обновляем данные об игроке в глобальном скрипте (в т.ч. о его позиции)
+			get_player_data.emit()
+			# Получаем позицию игрока (Если она есть в словаре)
+			var player_pos = Vector2.ZERO
+			if player_data.has("global_position"):
+				player_pos = player_data["global_position"]
+			# Создаём эффект восстановления здоровья там, где стоит игрок
+			create_effect("health_up_effect", player_pos + Vector2(0, -10))
 		# Если value = 0, то ничего не происходит
 		elif value < player_health:
 			if is_player_vulnerable:
@@ -211,6 +219,9 @@ signal get_player_data
 # Это нужно для загрузки сохранённых об узлах данных
 var nodes_take_data_from_globals: bool = false
 
+# Информация о сохраняемых объектах (аптечки, зоны движения камеры, монетки и т.п.)
+var objects_save_data: Dictionary
+
 # Сохраняем прогресс игры
 func save_game() -> void:
 	# Открываем файл сохранения на запись
@@ -222,6 +233,9 @@ func save_game() -> void:
 	
 	get_player_data.emit()
 	file.store_var(player_data)
+	
+	file.store_var(objects_save_data)
+	print(objects_save_data)
 
 # Загружаем ранее сохранённую игру
 func load_game() -> void:
@@ -241,8 +255,11 @@ func load_game() -> void:
 	
 	max_player_health = file.get_var()
 	player_health = file.get_var()
-	
+
 	player_data = file.get_var()
+	
+	objects_save_data = file.get_var()
+	print(objects_save_data)
 
 # Начинаем новую игру, все глобальные игровые переменные возвращаются к начальным значениям
 func new_game() -> void:
@@ -250,6 +267,9 @@ func new_game() -> void:
 	max_player_health = 300              # Начальное макс. здоровье
 	player_health = max_player_health    # Начальное здоровье
 	nodes_take_data_from_globals = false # У всех узлов значения по умолчанию
+	objects_save_data.clear()
+	# "Обнуляем" позицию игрока
+	player_data["global_position"] = Vector2.ZERO
 	
 	# Обновляем файл сохранения
 	save_game()
