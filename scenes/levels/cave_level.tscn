@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=4 uid="uid://djy5i282kv756"]
+[gd_scene load_steps=59 format=4 uid="uid://djy5i282kv756"]
 
 [ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_u0fgh"]
 [ext_resource type="PackedScene" uid="uid://d2hroljqhw21j" path="res://scenes/interactive_objects/transition.tscn" id="2_c0vi2"]
@@ -46,6 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://cme1xdhwmg5oh" path="res://sprites/world/3 Objects/Boxes/5.png" id="19_y3x0v"]
 [ext_resource type="Texture2D" uid="uid://cggl8jwum26ni" path="res://sprites/world/3 Objects/Grass/9.png" id="20_gbpyv"]
 [ext_resource type="Texture2D" uid="uid://c634xxd2wguuu" path="res://sprites/world/3 Objects/Boxes/2.png" id="20_key2w"]
+[ext_resource type="PackedScene" uid="uid://ct5eedaysei24" path="res://scenes/objects/health_up_bonus.tscn" id="46_woihw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5bye"]
 size = Vector2(5, 171)
@@ -931,6 +932,10 @@ position = Vector2(3778, -301)
 
 [node name="SavePoint2" parent="Objects" index="61" instance=ExtResource("8_i3ckm")]
 position = Vector2(3989, -351)
+
+[node name="HealthUpBonus" parent="Objects" index="62" instance=ExtResource("46_woihw")]
+position = Vector2(2849, 45)
+save_key = "health_up2"
 
 [node name="Monster" type="Node2D" parent="NPC" index="0"]
 

@@ -6,7 +6,7 @@ extends Area2D
 @export var save_key: String
 
 func _on_body_entered(_body: Node2D) -> void:
-	Globals.player_health += 100
+	Globals.player_health += 150
 	Globals.objects_save_data[save_key] = false
 	queue_free()
 
