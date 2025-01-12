@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://vgp6jl40sils"]
+
+[ext_resource type="PackedScene" uid="uid://bgrqmgtanjpyq" path="res://scenes/objects/moving_platform.tscn" id="1_nevsp"]
+[ext_resource type="Texture2D" uid="uid://bl4gsdap2hbdv" path="res://sprites/traps/FallingPlatfrom.png" id="2_e74uk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktpe3"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8j7qx"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_im57a"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82cdt"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lrxw"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkfc0"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(160, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1s5lt"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(192, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guivb"]
+atlas = ExtResource("2_e74uk")
+region = Rect2(224, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x4hto"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktpe3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8j7qx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_im57a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82cdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lrxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkfc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1s5lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guivb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkwdm"]
+size = Vector2(24, 6)
+
+[node name="MovingPlatformType1" instance=ExtResource("1_nevsp")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D" index="0"]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_x4hto")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" index="1"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_pkwdm")

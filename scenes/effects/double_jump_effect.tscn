@@ -103,6 +103,7 @@ animations = [{
 }]
 
 [node name="DoubleJumpEffect" instance=ExtResource("1_2gja1")]
+z_index = 3
 material = SubResource("ShaderMaterial_kf4qh")
 sprite_frames = SubResource("SpriteFrames_pso8o")
 autoplay = "default"

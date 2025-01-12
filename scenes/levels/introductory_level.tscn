@@ -86,12 +86,12 @@ damage = 40.0
 position = Vector2(666.75, 46.5)
 shape = SubResource("RectangleShape2D_7claq")
 
-[node name="Transition" parent="AreasAndZones" index="2" instance=ExtResource("4_1lj8g")]
+[node name="CaveTransition" parent="AreasAndZones" index="2" instance=ExtResource("4_1lj8g")]
 position = Vector2(6778, 40)
 level_path = "res://scenes/levels/cave_level.tscn"
 next_level_position = Vector2(22, -17)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreasAndZones/Transition" index="2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreasAndZones/CaveTransition" index="2"]
 position = Vector2(1, 43)
 polygon = PackedVector2Array(-59, -4, 54, -3, 55, -50, 22, -83, -26, -84, -59, -51)
 

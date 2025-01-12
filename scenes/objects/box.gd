@@ -12,7 +12,7 @@ func _physics_process(_delta: float) -> void:
 		collision_mask &= ~0b0000001  # Убираем 1-й бит (слой 1)
 	
 	# Вектор гравитации
-	var gravity_vector = Vector2(0, 200)
+	var gravity_vector = Vector2(0, 400)
 	
 	# Столкновение с ящиком справа
 	if $Right1.is_colliding() and movement_direction_x != 0:

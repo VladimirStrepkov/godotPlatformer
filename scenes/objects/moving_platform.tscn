@@ -1,74 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgrqmgtanjpyq"]
+[gd_scene load_steps=2 format=3 uid="uid://bgrqmgtanjpyq"]
 
 [ext_resource type="Script" path="res://scenes/objects/moving_platform.gd" id="1_4rcqx"]
-[ext_resource type="Texture2D" uid="uid://bl4gsdap2hbdv" path="res://sprites/traps/FallingPlatfrom.png" id="1_hwltu"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ktpe3"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(0, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8j7qx"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(32, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_im57a"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_82cdt"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(96, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0lrxw"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(128, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hkfc0"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(160, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1s5lt"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(192, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_guivb"]
-atlas = ExtResource("1_hwltu")
-region = Rect2(224, 0, 32, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_kqxs7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ktpe3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8j7qx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_im57a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_82cdt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0lrxw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hkfc0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1s5lt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_guivb")
-}],
-"loop": true,
-"name": &"default",
-"speed": 30.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_muqxc"]
-size = Vector2(24, 6)
 
 [node name="MovingPlatform" type="Path2D"]
 script = ExtResource("1_4rcqx")
@@ -82,13 +14,3 @@ update_rotation = false
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
 collision_layer = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D"]
-position = Vector2(0, 8)
-sprite_frames = SubResource("SpriteFrames_kqxs7")
-autoplay = "default"
-frame_progress = 0.450087
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_muqxc")

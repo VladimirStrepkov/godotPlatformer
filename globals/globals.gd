@@ -18,13 +18,15 @@ var test_level_2 = "res://scenes/levels/level_2.tscn"
 # Некоторые механики должны попасть в "Feather of Destiny"
 var introductory_level = "res://scenes/levels/introductory_level.tscn"
 var cave_level = "res://scenes/levels/cave_level.tscn"
+var magic_forest_level = "res://scenes/levels/magic_forest.tscn"
 
 # Названия уровней локаций
 var level_names: Dictionary = {
 	test_level_1 : "Тест-ровень 1",
 	test_level_2 : "Тест-уровень 2",
 	introductory_level : "Начало",
-	cave_level : "Пещера"
+	cave_level : "Пещера",
+	magic_forest_level : "Магический лес"
 }
 
 # Позиция игрока на следующем уровне
@@ -83,13 +85,15 @@ var is_pause: bool = false:
 		pause_menu_switch.emit()
 
 # Здоровье игрока
-var max_player_health: float
-var player_health: float:
+# Здесь указано значение для тестирования уровней
+# (Оно обновится при начале новой игры/загрузке сохранения)
+var max_player_health: float = 1000
+var player_health: float = max_player_health:
 	set(value):
 		# Здоровье игрока нельзя изменять если персонаж игрока умер
 		if does_player_died:
 			return
-		if value >= player_health:
+		if value > player_health:
 			player_health = min(value, max_player_health)
 			# Обновляем данные об игроке в глобальном скрипте (в т.ч. о его позиции)
 			get_player_data.emit()

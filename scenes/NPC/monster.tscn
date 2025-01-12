@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://dv2dpimcch2qy"]
+
+[ext_resource type="PackedScene" uid="uid://b4jdumjcjvruk" path="res://scenes/NPC/npc.tscn" id="1_ajpk4"]
+[ext_resource type="Texture2D" uid="uid://deafmglmxttid" path="res://sprites/bosses/1 Centipede/Centipede_idle.png" id="2_tq17w"]
+[ext_resource type="Texture2D" uid="uid://dvbsnubh4uwdg" path="res://sprites/bosses/1 Centipede/Centipede_walk.png" id="3_sil1r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wi8l"]
+size = Vector2(80, 49.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjjvf"]
+atlas = ExtResource("2_tq17w")
+region = Rect2(0, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_151cp"]
+atlas = ExtResource("2_tq17w")
+region = Rect2(72, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eawq6"]
+atlas = ExtResource("2_tq17w")
+region = Rect2(144, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8dya"]
+atlas = ExtResource("2_tq17w")
+region = Rect2(216, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0k1s"]
+atlas = ExtResource("3_sil1r")
+region = Rect2(0, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ng81"]
+atlas = ExtResource("3_sil1r")
+region = Rect2(72, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps6pc"]
+atlas = ExtResource("3_sil1r")
+region = Rect2(144, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h28vj"]
+atlas = ExtResource("3_sil1r")
+region = Rect2(216, 0, 72, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_73h0w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjjvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_151cp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eawq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8dya")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0k1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ng81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps6pc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h28vj")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Monster" node_paths=PackedStringArray("anim") instance=ExtResource("1_ajpk4")]
+scale = Vector2(-1, 1)
+anim = NodePath("AnimatedSprite2D")
+anim_left_x = 27
+anim_right_x = 3
+npc_name = "Монстр"
+dialogue_number = 1
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(13, -25.25)
+shape = SubResource("RectangleShape2D_4wi8l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
+position = Vector2(3, -36)
+sprite_frames = SubResource("SpriteFrames_73h0w")
+animation = &"idle"

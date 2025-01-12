@@ -10,6 +10,7 @@ size = Vector2(51, 45)
 size = Vector2(55, 25)
 
 [node name="Box" type="CharacterBody2D"]
+z_index = 4
 position = Vector2(0, -13)
 collision_layer = 64
 collision_mask = 87

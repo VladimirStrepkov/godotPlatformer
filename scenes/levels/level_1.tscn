@@ -134,7 +134,6 @@ collision_layer = 1
 position = Vector2(41, 98)
 collision_layer = 1
 level_path = "res://scenes/levels/level_2.tscn"
-next_level_position = Vector2(0, 0)
 
 [node name="Jack" type="Node2D" parent="." index="9"]
 

@@ -16,7 +16,8 @@ func _ready() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property($BlackScreen, "color:a", 0, 4)
 	# Показываем название уровня, на котором мы появились
-	$NormalMode/LevelLabel/CenterContainer/Label.text = Globals.level_names[Globals.current_level]
+	if Globals.level_names.has(Globals.current_level):
+		$NormalMode/LevelLabel/CenterContainer/Label.text = Globals.level_names[Globals.current_level]
 	await get_tree().create_timer(2, false).timeout
 	tween = get_tree().create_tween()
 	tween.tween_property($NormalMode/LevelLabel, "modulate:a", 0, 1)

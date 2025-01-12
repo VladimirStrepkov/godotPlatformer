@@ -31,7 +31,7 @@ animations = [{
 size = Vector2(40, 4)
 
 [node name="PressurePlate" instance=ExtResource("1_mlwqx")]
-z_index = 2
+z_index = 5
 script = ExtResource("2_d8g61")
 
 [node name="CollisionShape2D" parent="." index="0"]
