@@ -952,7 +952,7 @@ position = Vector2(4142, -400)
 position = Vector2(4354, -401)
 
 [node name="Player" parent="." index="6"]
-position = Vector2(4447, -391)
+position = Vector2(3835, 21)
 
 [node name="LeftCameraLimit" parent="Limits" index="0"]
 position = Vector2(-362, -47)

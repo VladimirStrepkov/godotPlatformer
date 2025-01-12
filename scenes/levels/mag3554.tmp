@@ -329,9 +329,9 @@ position = Vector2(1925, 173)
 
 [node name="PressurePlate" parent="Objects" index="44" node_paths=PackedStringArray("objects") instance=ExtResource("15_gib0b")]
 position = Vector2(1724, 190)
-objects = [NodePath("../MovingPlatformType5"), NodePath("../MovingPlatformType6")]
-on_functions = Array[String](["on_function", "on_function"])
-off_functions = Array[String](["off_function", "off_function"])
+objects = []
+on_functions = []
+off_functions = []
 
 [node name="MovingPlatformType5" parent="Objects" index="45" instance=ExtResource("16_vmxft")]
 position = Vector2(1976, 96)
@@ -395,9 +395,8 @@ auto_start = false
 idle_time = 1.0
 activity_time = 1.0
 
-[node name="Lever" parent="Objects" index="62" node_paths=PackedStringArray("objects") instance=ExtResource("20_vs7ck")]
+[node name="Lever" parent="Objects" index="62" instance=ExtResource("20_vs7ck")]
 position = Vector2(2118, 192)
-objects = [NodePath("../Jumper")]
 on_functions = Array[String](["on_function"])
 off_functions = Array[String](["off_function"])
 
@@ -409,9 +408,9 @@ switches = true
 
 [node name="PressurePlate2" parent="Objects" index="64" node_paths=PackedStringArray("objects") instance=ExtResource("15_gib0b")]
 position = Vector2(4394, -257)
-objects = [NodePath("../MovingPlatformType7")]
-on_functions = Array[String](["on_function"])
-off_functions = Array[String](["off_function"])
+objects = []
+on_functions = []
+off_functions = []
 
 [node name="TableWithText2" parent="Objects" index="65" instance=ExtResource("17_gyaqv")]
 position = Vector2(3965, -252)
@@ -439,9 +438,8 @@ position = Vector2(5095, 107)
 [node name="Box4" parent="Objects" index="70" instance=ExtResource("14_f8058")]
 position = Vector2(5465, 108)
 
-[node name="Lever2" parent="Objects" index="71" node_paths=PackedStringArray("objects") instance=ExtResource("20_vs7ck")]
+[node name="Lever2" parent="Objects" index="71" instance=ExtResource("20_vs7ck")]
 position = Vector2(4064, 0)
-objects = [NodePath("../MovingPlatformType8")]
 on_functions = Array[String](["on_function"])
 off_functions = Array[String](["off_function"])
 
@@ -458,9 +456,8 @@ other_teleport = NodePath("../Teleport4")
 [node name="SavePoint4" parent="Objects" index="75" instance=ExtResource("8_heh40")]
 position = Vector2(4800, -255)
 
-[node name="Lever3" parent="Objects" index="76" node_paths=PackedStringArray("objects") instance=ExtResource("20_vs7ck")]
+[node name="Lever3" parent="Objects" index="76" instance=ExtResource("20_vs7ck")]
 position = Vector2(4930, -256)
-objects = [NodePath("../MovingPlatformType9")]
 on_functions = Array[String](["on_function"])
 off_functions = Array[String](["off_function"])
 
@@ -486,9 +483,8 @@ curve = SubResource("Curve2D_cdks5")
 speed = 100.0
 switches = true
 
-[node name="Lever4" parent="Objects" index="81" node_paths=PackedStringArray("objects") instance=ExtResource("20_vs7ck")]
+[node name="Lever4" parent="Objects" index="81" instance=ExtResource("20_vs7ck")]
 position = Vector2(4957, 96)
-objects = [NodePath("../MovingPlatformType10"), NodePath("../MovingPlatformType11")]
 on_functions = Array[String](["on_function", "on_function"])
 off_functions = Array[String](["off_function", "off_function"])
 
@@ -508,7 +504,7 @@ position = Vector2(1692, -511)
 save_key = "health_up1"
 
 [node name="Player" parent="." index="6"]
-position = Vector2(4891, 69)
+position = Vector2(4893, 69)
 
 [node name="LeftCameraLimit" parent="Limits" index="0"]
 position = Vector2(-469, -116)

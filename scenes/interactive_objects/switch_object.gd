@@ -12,8 +12,6 @@ class_name SwitchObject
 
 # Активация переключателя
 func activate() -> void:
-	print(objects)
-	print("из за того что у всех рычагов общий родитель (switch object) они имеют общий массив переключаемых объектов, поэтому каждый рычаг активирует объекты других рычагов. Надо исправлять")
 	for i in range(len(objects)):
 		objects[i].call(on_functions[i])
 

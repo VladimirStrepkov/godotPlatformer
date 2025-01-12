@@ -39,6 +39,8 @@ var is_player_vulnerable: bool = true
 # Может ли игрок переключить рычаг
 var player_can_switch_lever = false
 signal switch_lever
+# Какой рычаг может переключить игрок (Путь до этого рычага)
+var lever_path
 
 # Может ли игрок сохранить игру (т.е. рядом ли он с сейв-поинтом)
 var player_can_save: bool = false
