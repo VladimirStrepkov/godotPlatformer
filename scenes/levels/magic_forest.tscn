@@ -36,7 +36,7 @@ point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_ki6kr"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 176, 1, 0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -37, 0, 0, 0, 0, 0, 176, 1, 0, 0, 0, 0, -37, 0)
 }
 point_count = 3
 
@@ -63,9 +63,9 @@ size = Vector2(41, 354)
 
 [sub_resource type="Curve2D" id="Curve2D_l1nth"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 2, 127, 0, 0, 0, 0, 279, 130, 0, 0, 0, 0, 276, 93, 0, 0, 0, 0, 18, 95, 0, 0, 0, 0, 17, 38, 0, 0, 0, 0, 224, 37, 0, 0, 0, 0, 223, -1, 0, 0, 0, 0, 0, -1)
+"points": PackedVector2Array(0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0.628479, 9.94487, 0, 0, 0, 0, 2, 127, 0, 0, 0, 0, 279, 130, 0, 0, 0, 0, 276, 93, 0, 0, 0, 0, 18, 95, 0, 0, 0, 0, 17, 38, 0, 0, 0, 0, 224, 37, 0, 0, 0, 0, 223, -1, 0, 0, 0, 0, 0, -1)
 }
-point_count = 9
+point_count = 10
 
 [sub_resource type="Curve2D" id="Curve2D_bjede"]
 _data = {
@@ -508,7 +508,7 @@ position = Vector2(1692, -511)
 save_key = "health_up1"
 
 [node name="Player" parent="." index="6"]
-position = Vector2(4891, 69)
+position = Vector2(5732, -64)
 
 [node name="LeftCameraLimit" parent="Limits" index="0"]
 position = Vector2(-469, -116)

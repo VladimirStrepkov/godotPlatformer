@@ -10,6 +10,7 @@ size = Vector2(32, 15)
 z_index = 1
 collision_layer = 8
 script = ExtResource("1_514dj")
+damage = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)

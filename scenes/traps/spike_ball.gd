@@ -3,6 +3,9 @@ extends Path2D
 # максимальная скорость движения пилы
 const MAX_SPEED:float = 300
 
+# Урон от пилы
+@export var damage: float = 100 
+
 var is_player_near: bool = false
 
 # Скорость двигающейся пилы
@@ -24,4 +27,4 @@ func _on_area_2d_body_exited(_body: Node2D) -> void:
 
 func _process(_delta: float) -> void:
 	if is_player_near:
-		Globals.player_health -= 20
+		Globals.player_health -= damage
