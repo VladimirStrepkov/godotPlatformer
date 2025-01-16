@@ -1332,3 +1332,5 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/RightBorder"]
 position = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_ge16j")
+
+[node name="Projectiles" type="Node2D" parent="."]

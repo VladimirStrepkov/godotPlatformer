@@ -413,7 +413,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mew5o"]
 size = Vector2(65, 50)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 collision_mask = 127
 script = ExtResource("1_buplv")

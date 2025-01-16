@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgfb7u0o7gwpj"]
+
+[ext_resource type="PackedScene" uid="uid://by6cqup53e4mw" path="res://scenes/projectiles/projectile.tscn" id="1_lt26k"]
+[ext_resource type="Texture2D" uid="uid://dk4rvs0hdvuvs" path="res://sprites/enemies/6 Deceased/ball.png" id="2_j8klr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6snf"]
+radius = 4.0
+
+[node name="Ball" instance=ExtResource("1_lt26k")]
+speed = 50
+effect_name = "ball_effect"
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_j8klr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_x6snf")

@@ -1,4 +1,5 @@
 extends Node2D
+class_name Enemy
 
 # Создание нового вида врагов
 # 1) Создать animatedSprite2D и добавить к нему шейдер white_color.gdshader
@@ -9,7 +10,7 @@ extends Node2D
 # 6) Задать anim_left_x и anim_right_x
 # 7) задать attack_frame
 # 8) задать damage
-# 9) 
+# 9) переопределить attack (если это необходимо)
 
 
 # Создание нового врага
@@ -77,6 +78,9 @@ var can_attack: bool = false
 
 var player
 
+# Атаковал ли уже враг в этом кадре
+var attacked_in_this_frame: bool = false
+
 func _ready() -> void:
 	target_x = global_position.x
 	health = max_health
@@ -109,10 +113,12 @@ func  _process(delta: float) -> void:
 	# Атакуем игрока если можем это сделать и видим игрока
 	if can_attack and sees_player and anim.animation != "attack":
 		anim.play("attack")
+		attacked_in_this_frame = false
 	
 	# Атакуем
-	if anim.animation == "attack" and anim.frame == attack_frame and can_attack:
+	if anim.animation == "attack" and anim.frame == attack_frame and can_attack and not attacked_in_this_frame:
 		attack()
+		attacked_in_this_frame = true
 	
 	# Анимация атаки закончилась
 	if anim.animation == "attack":
