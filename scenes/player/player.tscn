@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://byaj8hy1017wq"]
+[gd_scene load_steps=62 format=3 uid="uid://byaj8hy1017wq"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_buplv"]
 [ext_resource type="Shader" path="res://shaders/white_color.gdshader" id="1_wdu6e"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://835v3ps8kxcl" path="res://sprites/characters/1 Woodcutter/Woodcutter_jump.png" id="2_kdqpa"]
 [ext_resource type="Texture2D" uid="uid://bu564yl3tb318" path="res://sprites/characters/1 Woodcutter/Woodcutter_death.png" id="3_7n8wb"]
 [ext_resource type="Texture2D" uid="uid://cgrc0pgyymigb" path="res://sprites/characters/1 Woodcutter/Woodcutter_climb.png" id="3_53nmr"]
+[ext_resource type="Texture2D" uid="uid://buuxs7de7xy5r" path="res://sprites/characters/1 Woodcutter/Woodcutter_attack1.png" id="3_edqgg"]
 [ext_resource type="Texture2D" uid="uid://crc8st0fvk3xh" path="res://sprites/characters/1 Woodcutter/Woodcutter_run.png" id="4_1mnfp"]
 [ext_resource type="Texture2D" uid="uid://dmc8dsvceypem" path="res://sprites/characters/1 Woodcutter/Woodcutter_walk.png" id="5_khipb"]
 [ext_resource type="Texture2D" uid="uid://bc71fn7od3u8d" path="res://sprites/characters/1 Woodcutter/Woodcutter_push.png" id="8_bwgyf"]
@@ -18,6 +19,30 @@ resource_local_to_scene = true
 shader = ExtResource("1_wdu6e")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/progress = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3jw2"]
+atlas = ExtResource("3_edqgg")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eqiy"]
+atlas = ExtResource("3_edqgg")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3kfw"]
+atlas = ExtResource("3_edqgg")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpbek"]
+atlas = ExtResource("3_edqgg")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjfo2"]
+atlas = ExtResource("3_edqgg")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xo44"]
+atlas = ExtResource("3_edqgg")
+region = Rect2(240, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsimp"]
 atlas = ExtResource("3_53nmr")
@@ -185,6 +210,29 @@ region = Rect2(96, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eemjy"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3jw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eqiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3kfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpbek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjfo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xo44")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 9.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hsimp")
@@ -362,6 +410,9 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mew5o"]
+size = Vector2(65, 50)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 collision_mask = 127
@@ -375,7 +426,9 @@ shape = SubResource("RectangleShape2D_63te6")
 material = SubResource("ShaderMaterial_xi2pj")
 position = Vector2(-10, -8)
 sprite_frames = SubResource("SpriteFrames_eemjy")
-animation = &"idle"
+animation = &"attack"
+frame = 5
+frame_progress = 1.0
 flip_h = true
 
 [node name="Timers" type="Node2D" parent="."]
@@ -393,3 +446,14 @@ collision_mask = 64
 position = Vector2(8, 0)
 target_position = Vector2(0, -17)
 collision_mask = 64
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(-22.5, -9)
+shape = SubResource("RectangleShape2D_mew5o")
+
+[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="area_exited" from="AttackArea" to="." method="_on_attack_area_area_exited"]

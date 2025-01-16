@@ -139,7 +139,7 @@ func switch_player_white_color() -> void:
 	else:
 		$AnimatedSprite2D.material.set_shader_parameter("progress", 1)
 
-func _physics_process(delta):
+func _physics_process(delta):	
 	# Игрок телепортируется если может это сделать и нажимает на E
 	if Input.is_action_just_pressed("interact") and player_can_teleport:
 		# Телепортируем игрока немного правее
@@ -267,6 +267,19 @@ func _physics_process(delta):
 	# Обнуляем значение толчка
 	player_pushing = 0
 	
+	# Игрок атакует
+	if is_on_floor() and Input.is_action_pressed("F") and not anim.animation == "attack" and velocity.x == 0:
+		anim.play("attack")
+	
+	# Игрок наносит урон врагам
+	if anim.animation == "attack" and anim.frame == 3:
+		for enemy in attack_enemies:
+			enemy.hit()
+		
+	# Атака кончилась
+	if anim.animation == "attack" and not anim.is_playing():
+		anim.play("idle")
+	
 	update_animation()
 	move_and_slide()
 
@@ -343,6 +356,17 @@ func update_animation():
 func rotate_right() -> void:
 	anim.flip_h = false
 	anim.position.x = 7
+	$AttackArea.scale.x = -1
 func rotate_left() -> void:
 	anim.flip_h = true
-	anim.position.x = -10 
+	anim.position.x = -10
+	$AttackArea.scale.x = 1
+
+# Массив врагов, которых может атаковать игрок
+var attack_enemies: Array = []
+
+func _on_attack_area_area_entered(area: Area2D) -> void:
+	attack_enemies.append(area)
+
+func _on_attack_area_area_exited(area: Area2D) -> void:
+	attack_enemies.erase(area)

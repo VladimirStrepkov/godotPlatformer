@@ -1294,6 +1294,8 @@ z_index = 3
 left_limit = NodePath("../../Limits/LeftCameraLimit")
 right_limit = NodePath("../../Limits/RightCameraLimit")
 
+[node name="Enemies" type="Node2D" parent="."]
+
 [node name="Traps" type="Node2D" parent="."]
 
 [node name="Effects" type="Node2D" parent="."]
