@@ -93,6 +93,8 @@ func attack():
 func  _process(delta: float) -> void:	
 	# Удаляем врага со сцены
 	if anim.animation == "death" and not anim.is_playing():
+		if sees_player:
+			Globals.count_enemies_sees_player -= 1
 		get_parent().queue_free()
 	
 	# Враг умер
@@ -100,7 +102,7 @@ func  _process(delta: float) -> void:
 		return
 	
 	# Враг движется в сторону игрока если видит его
-	if sees_player:
+	if sees_player and not Globals.player_stealth:
 		target_x = player.global_position.x
 	
 	# Целевая позиция не может выходить за рамки границ
@@ -111,7 +113,7 @@ func  _process(delta: float) -> void:
 	turn_to_x(target_x)
 	
 	# Атакуем игрока если можем это сделать и видим игрока
-	if can_attack and sees_player and anim.animation != "attack":
+	if can_attack and sees_player and not Globals.player_stealth and anim.animation != "attack":
 		anim.play("attack")
 		attacked_in_this_frame = false
 	
@@ -177,7 +179,9 @@ func turn_to_x(x: float) -> void:
 
 # Враг замечает игрока
 func _on_notice_area_body_entered(body: Node2D) -> void:
-	sees_player = true
+	if not sees_player:
+		sees_player = true
+		Globals.count_enemies_sees_player += 1
 	player = body
 	# Если запущен таймер забывания, то он останавливается
 	if not $MemoryTimer.is_stopped():
@@ -193,7 +197,7 @@ func _on_notice_area_body_exited(_body: Node2D) -> void:
 # Враг "забывает" игрока
 func _on_memory_timer_timeout() -> void:
 	sees_player = false
-
+	Globals.count_enemies_sees_player -= 1
 
 func _on_attack_area_body_entered(_body: Node2D) -> void:
 	can_attack = true
@@ -202,8 +206,13 @@ func _on_attack_area_body_exited(_body: Node2D) -> void:
 	can_attack = false
 
 # Врага атаковали
-func hit():
+func hit(player_node):
+	player = player_node
 	if $HitTimer.is_stopped() and health > 0:
+		if not sees_player:
+			sees_player = true
+			Globals.count_enemies_sees_player += 1
+		Globals.player_stealth = false
 		anim.material.set_shader_parameter("progress", 1)
 		health -= 30
 		$HitTimer.start()

@@ -85,11 +85,27 @@ func switch_box_interaction(box_link) -> void:
 	box_interaction_possible = not box_interaction_possible
 	box_object = box_link
 
+# Затемнён ли спрайт игрока
+var is_black: bool = false
+
+func on_black_color_player() -> void:
+	is_black = true
+	$AnimatedSprite2D.material.set_shader_parameter("progress", 0.8)
+	$AnimatedSprite2D.material.set_shader_parameter("color", Color(0, 0, 0, 1))
+
+func off_black_color_player() -> void:
+	is_black = false
+	$AnimatedSprite2D.material.set_shader_parameter("progress", 0)
+	$AnimatedSprite2D.material.set_shader_parameter("color", Color(1, 1, 1, 1))
+
+
 func _ready() -> void:
 	anim.play("idle")
 	Globals.connect("switch_player_white_color", switch_player_white_color)
 	Globals.connect("get_player_data", get_player_data)
 	Globals.connect("player_died", player_died)
+	Globals.connect("on_black_color_player", on_black_color_player)
+	Globals.connect("off_black_color_player", off_black_color_player)
 	
 	# По умолчанию игрок повёрнут вправо
 	rotate_right()
@@ -268,13 +284,13 @@ func _physics_process(delta):
 	player_pushing = 0
 	
 	# Игрок атакует
-	if is_on_floor() and Input.is_action_pressed("F") and not anim.animation == "attack" and velocity.x == 0:
+	if is_on_floor() and Input.is_action_pressed("F") and not anim.animation == "attack" and velocity.x == 0 and not does_player_died:
 		anim.play("attack")
 	
 	# Игрок наносит урон врагам
 	if anim.animation == "attack" and anim.frame == 3:
 		for enemy in attack_enemies:
-			enemy.hit()
+			enemy.hit(self)
 		
 	# Атака кончилась
 	if anim.animation == "attack" and not anim.is_playing():

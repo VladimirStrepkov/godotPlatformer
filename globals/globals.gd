@@ -62,6 +62,20 @@ var dialogue_info: Dictionary = {
 	"npс" : null             # С каким НПС игрок может начать диалог
 }
 
+signal on_black_color_player
+signal off_black_color_player
+
+# В зонах видимости скольки врагов сейчас находится игрок
+var count_enemies_sees_player: int = 0
+# Скрывается ли сейчас игрок
+var player_stealth: bool = false:
+	set(value):
+		player_stealth = value
+		if value:
+			on_black_color_player.emit()
+		else:
+			off_black_color_player.emit()
+	
 # Переключение белого цвета спрайта игрока (при получении урона/конце неуязвимости)
 signal switch_player_white_color
 
@@ -187,6 +201,8 @@ func change_scene(scene_path : String) -> void:
 	is_pause = false
 	player_can_move = true
 	does_player_died = false
+	count_enemies_sees_player = 0
+	player_stealth = false
 	
 # Обновляем интерфейс
 func stat_change() -> void:
