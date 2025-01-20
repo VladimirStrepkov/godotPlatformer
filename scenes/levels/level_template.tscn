@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://dm87qxkt7mr3l"]
+[gd_scene load_steps=51 format=4 uid="uid://dm87qxkt7mr3l"]
 
 [ext_resource type="Script" path="res://scenes/levels/level_template.gd" id="1_2fqoo"]
 [ext_resource type="PackedScene" uid="uid://byaj8hy1017wq" path="res://scenes/player/player.tscn" id="2_gr7ek"]
@@ -1298,6 +1298,9 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_uqjek"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gaiuc"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4tmgj"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
@@ -1480,12 +1483,16 @@ texture = ExtResource("5_qxros")
 3:6/0 = 0
 5:6/0 = 0
 7:6/0 = 0
+7:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_gaiuc")
 7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:6/0 = 0
+8:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_gaiuc")
 8:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:6/0 = 0
+9:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_gaiuc")
 9:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 10:6/0 = 0
+10:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_gaiuc")
 10:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:6/0 = 0
 12:6/0 = 0

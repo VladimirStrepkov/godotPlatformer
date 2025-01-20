@@ -512,10 +512,10 @@ position = Vector2(5669, -31)
 
 [node name="HealthUpBonus" parent="Objects" index="84" instance=ExtResource("21_2qsrj")]
 position = Vector2(1692, -511)
-save_key = "health_up1"
+save_key = "health_up2"
 
 [node name="Player" parent="." index="6"]
-position = Vector2(5898, -98)
+position = Vector2(6052, -52)
 
 [node name="LeftCameraLimit" parent="Limits" index="0"]
 position = Vector2(-469, -116)

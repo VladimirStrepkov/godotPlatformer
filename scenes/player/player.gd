@@ -214,8 +214,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("top") and player_can_climb and not player_climbs and not box_interaction:
 		player_climbs = true
 	
-	# Если игрок нажимает "space", то он слезает с лестницы
-	if Input.is_action_just_pressed("accept") and player_climbs:
+	# Если игрок нажимает "space", "shift" то он слезает с лестницы
+	if (Input.is_action_just_pressed("accept") or Input.is_action_just_pressed("shift")) and player_climbs:
 		player_climbs = false
 		max_y_height = global_position.y # Обновляем максимальную высоту после отрыва от земли
 	

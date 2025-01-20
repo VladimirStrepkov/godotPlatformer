@@ -19,8 +19,12 @@ class_name Enemy
 # 2) Задать левую и правую границы передвижения врага по x
 # 3) Задать точки movement_points (Если не random_movement)
 # 4) Задать значения времени point_wait_times (Если не random_movement)
-# 5) 
+# 5) Указать для врага уникальный save_key
 
+# Ключ для файла сохранения (objects_save_data). Должен быть уникальным у 
+# каждого экземпляра сцены. Если мы подобрали бонус и сохранились, то при 
+# загрузке игры этот бонус уже не будет загружаться в сцену.
+@export var save_key: String
 
 @export var anim: AnimatedSprite2D
 
@@ -82,6 +86,13 @@ var player
 var attacked_in_this_frame: bool = false
 
 func _ready() -> void:
+	# Если в Globals есть информация об этом узле и если этот узел уже был уничтожен, то
+	# мы больше не будем создавать этот узел при загрузке сцены
+	if Globals.objects_save_data.has(save_key):
+		if not Globals.objects_save_data[save_key]:
+			get_parent().queue_free()
+	else:
+		Globals.objects_save_data[save_key] = true
 	target_x = global_position.x
 	health = max_health
 
@@ -216,6 +227,9 @@ func hit(player_node):
 		anim.material.set_shader_parameter("progress", 1)
 		health -= 30
 		$HitTimer.start()
+		if health == 0:
+			# Если враг убит, то при загрузке сохранения он не будет создаваться
+			Globals.objects_save_data[save_key] = false
 		
 
 func _on_hit_timer_timeout() -> void:
