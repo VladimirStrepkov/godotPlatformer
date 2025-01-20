@@ -72,11 +72,15 @@ var count_enemies_sees_player: int = 0
 # Скрывается ли сейчас игрок
 var player_stealth: bool = false:
 	set(value):
+		var old_value = player_stealth
 		player_stealth = value
 		if value:
 			on_black_color_player.emit()
+			show_message("Вы скрылись")
 		else:
 			off_black_color_player.emit()
+			if old_value == true:
+				show_message("Вы вышли из укрытия")
 	
 # Переключение белого цвета спрайта игрока (при получении урона/конце неуязвимости)
 signal switch_player_white_color
@@ -220,6 +224,7 @@ func hide_hint() -> void:
 
 # Показываем сообщение с определённым текстом
 func show_message(message_text:String) -> void:
+	await get_tree().create_timer(0.1).timeout
 	ui_show_message.emit(message_text)
 
 signal ui_mode_switch

@@ -212,13 +212,14 @@ size = Vector2(18, 38)
 
 [node name="Deceased" node_paths=PackedStringArray("anim") instance=ExtResource("1_jqayc")]
 script = ExtResource("2_hgeop")
+ball_speed = 50
 anim = NodePath("AnimatedSprite2D")
 max_health = 150
 speed = 12.0
 anim_left_x = -10
 anim_right_x = 10
 attack_frame = 3
-damage = 100
+damage = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoticeArea" index="0"]
 position = Vector2(-91.5, -48)
@@ -229,7 +230,6 @@ position = Vector2(-88.5, -46)
 shape = SubResource("RectangleShape2D_87yb1")
 
 [node name="HealthBar" parent="." index="5"]
-anchors_preset = 8
 offset_top = -50.0
 offset_bottom = -42.0
 

@@ -225,7 +225,7 @@ func hit(player_node):
 			Globals.count_enemies_sees_player += 1
 		Globals.player_stealth = false
 		anim.material.set_shader_parameter("progress", 1)
-		health -= 30
+		health -= 40
 		$HitTimer.start()
 		if health == 0:
 			# Если враг убит, то при загрузке сохранения он не будет создаваться

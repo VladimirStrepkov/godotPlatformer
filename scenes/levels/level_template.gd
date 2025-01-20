@@ -1,4 +1,5 @@
 extends Node2D
+class_name LevelTemplate
 
 # Словарь эффектов (упакованные сцены)
 const effects: Dictionary = {

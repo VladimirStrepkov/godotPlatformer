@@ -1677,3 +1677,5 @@ position = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_ge16j")
 
 [node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Scripts" type="Node" parent="."]
