@@ -667,7 +667,7 @@ texture = ExtResource("20_gbpyv")
 
 [node name="TableWithText" parent="Objects" index="0" instance=ExtResource("3_gc41y")]
 position = Vector2(744, 36)
-table_text = "Нажмите W рядом с лестницей чтобы ухватиться за неёfeedW - лезть вверхfeedS - лезть внизfeedSPACE, A, D - сойти с лестницы"
+table_text = "Нажмите W рядом с лестницей чтобы ухватиться за неёfeedW - лезть вверхfeedS - лезть внизfeedSPACE - спрыгнуть с лестницы"
 
 [node name="Ladder" parent="Objects" index="1" instance=ExtResource("4_65mwp")]
 position = Vector2(848, 21)
@@ -952,7 +952,7 @@ position = Vector2(4142, -400)
 position = Vector2(4354, -401)
 
 [node name="Player" parent="." index="6"]
-position = Vector2(3835, 21)
+position = Vector2(3372, 144)
 
 [node name="LeftCameraLimit" parent="Limits" index="0"]
 position = Vector2(-362, -47)

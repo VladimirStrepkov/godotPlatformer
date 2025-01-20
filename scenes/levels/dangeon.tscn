@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhlwbo11nxrf2"]
+
+[ext_resource type="PackedScene" uid="uid://dm87qxkt7mr3l" path="res://scenes/levels/level_template.tscn" id="1_oba5w"]
+
+[node name="Dangeon" instance=ExtResource("1_oba5w")]
+background_num = 1

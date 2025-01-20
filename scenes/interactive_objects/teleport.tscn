@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dbkqlkcymrf1p"]
+[gd_scene load_steps=27 format=3 uid="uid://dbkqlkcymrf1p"]
 
 [ext_resource type="PackedScene" uid="uid://bgmcws8plyt4" path="res://scenes/interactive_objects/interactive_object_template.tscn" id="1_v7idy"]
 [ext_resource type="Texture2D" uid="uid://c57ottfebduxs" path="res://sprites/effects/fire/purple/end/burning_end_1.png" id="2_27wiq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mcrtnvntxmkx" path="res://sprites/effects/fire/purple/loops/burning_loop_1.png" id="3_mqjj5"]
 [ext_resource type="Texture2D" uid="uid://byni8i7j2xx1x" path="res://sprites/effects/fire/purple/start/burning_start_1.png" id="4_myi2x"]
 [ext_resource type="Texture2D" uid="uid://c1hu4jghn1wm3" path="res://sprites/world/3 Objects/Teleport.png" id="5_ikcmt"]
+[ext_resource type="Texture2D" uid="uid://c7mw2udmgelad" path="res://sprites/world/3 Objects/circle.png" id="7_ppi1f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyjhv"]
 size = Vector2(16.5, 52)
@@ -161,3 +162,8 @@ animation = &"end"
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("5_ikcmt")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="4"]
+color = Color(1, 0, 1, 1)
+shadow_enabled = true
+texture = ExtResource("7_ppi1f")

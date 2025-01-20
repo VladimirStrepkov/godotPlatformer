@@ -214,8 +214,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("top") and player_can_climb and not player_climbs and not box_interaction:
 		player_climbs = true
 	
-	# Если игрок нажимает "space", "a", "d", то он слезает с лестницы
-	if (Input.is_action_just_pressed("accept") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left")) and player_climbs:
+	# Если игрок нажимает "space", то он слезает с лестницы
+	if Input.is_action_just_pressed("accept") and player_climbs:
 		player_climbs = false
 		max_y_height = global_position.y # Обновляем максимальную высоту после отрыва от земли
 	
@@ -277,6 +277,10 @@ func _physics_process(delta):
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	# Игрок не двигается по x если он на лестнице
+	if player_climbs:
+		velocity.x = 0
 	
 	# Толкаем игрока по y
 	velocity.y += player_pushing

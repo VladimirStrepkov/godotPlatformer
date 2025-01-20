@@ -19,6 +19,7 @@ var test_level_2 = "res://scenes/levels/level_2.tscn"
 var introductory_level = "res://scenes/levels/introductory_level.tscn"
 var cave_level = "res://scenes/levels/cave_level.tscn"
 var magic_forest_level = "res://scenes/levels/magic_forest.tscn"
+var dangeon_level = "res://scenes/levels/dangeon.tscn"
 
 # Названия уровней локаций
 var level_names: Dictionary = {
@@ -26,7 +27,8 @@ var level_names: Dictionary = {
 	test_level_2 : "Тест-уровень 2",
 	introductory_level : "Начало",
 	cave_level : "Пещера",
-	magic_forest_level : "Магический лес"
+	magic_forest_level : "Магический лес",
+	dangeon_level : "Подземелье"
 }
 
 # Позиция игрока на следующем уровне
