@@ -168,13 +168,13 @@ func _physics_process(delta):
 		Globals.player_health -= 20
 	
 	# Если игрок на полу, его высота падения равна текущей y-координате
-	if is_on_floor():
+	if is_on_floor() or player_climbs:
 		# Если разница между высотой наивысшей точки после отрыва от земли и высотой точки приземления слишком большая
 		# то игрок получает урон
 		var fall_height = -(max_y_height - global_position.y)
 		if fall_height > save_height:
 			Globals.player_health -= floor((fall_height - save_height)/5)
-		if fall_height > 200:
+		if fall_height > 200 and not player_climbs:
 			Globals.create_effect("air_dash_effect", Vector2(global_position.x, global_position.y + 12), false, deg_to_rad(90))
 		max_y_height = global_position.y
 	# В ином случае будет вычисляться максимальная y-координата игрока с момента его отрыва от земли
@@ -218,6 +218,8 @@ func _physics_process(delta):
 	if (Input.is_action_just_pressed("accept") or Input.is_action_just_pressed("shift")) and player_climbs:
 		player_climbs = false
 		max_y_height = global_position.y # Обновляем максимальную высоту после отрыва от земли
+		if is_on_floor():
+			anim.play("idle")
 	
 	# Добавляем движение по лестнице
 	
